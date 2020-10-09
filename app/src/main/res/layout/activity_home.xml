@@ -15,67 +15,90 @@
         android:src="@drawable/logo"
         android:layout_gravity="center"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_first_layout"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        android:text="Selamat Datang"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputEmail"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:autofillHints=""
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:layout_gravity="center"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_last_layout"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputPassword"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:autofillHints=""
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:layout_gravity="center"/>
-    </com.google.android.material.textfield.TextInputLayout>
+        android:text="Pilih Menu : "
+        android:layout_gravity="center"
+        />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
         <Button
-            android:id="@+id/btnSignUp"
-            android:text="@string/btnSignUp"
+            android:id="@+id/btnSewa"
+            android:text="@string/sewa"
             android:layout_weight="0.8"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="65dp"
-            android:backgroundTint="@color/tombol"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/btnSignIn"
-            android:text="@string/btnSignIn"
-            android:layout_weight="0.8"
-            android:layout_marginEnd="65dp"
-            android:layout_marginStart="20dp"
             android:backgroundTint="@color/tombol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/btnList"
+            android:text="@string/list"
+            android:layout_weight="0.8"
+            android:backgroundTint="@color/tombol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/btnProfile"
+            android:text="@string/profile"
+            android:layout_weight="0.8"
+            android:backgroundTint="@color/tombol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/btnSignOut"
+            android:text="@string/btnSignOut"
+            android:layout_weight="0.8"
+            android:backgroundTint="@color/tombol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
 
 
 

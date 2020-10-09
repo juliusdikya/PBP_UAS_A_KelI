@@ -1,9 +1,21 @@
 <resources>
+
+    <string name=""></string>
+
     <string name="app_name">SewaIn</string>
     <string name="btnSignIn">Sign In</string>
     <string name="btnSignUp">Sign Up</string>
+    <string name="btnSignOut">Sign Out</string>
 
     <string name="email">Email</string>
     <string name="password">Password</string>
+
+    <string name="sewa">Sewa Motor</string>
+    <string name="list">List Penyewa</string>
+    <string name="profile">Edit Profile</string>
+
+
+
+
 
 </resources>
