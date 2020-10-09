@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
     <ImageView
         android:id="@+id/logo"
@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.100000024"
+        app:layout_constraintVertical_bias="0.07999998"
         app:srcCompat="@drawable/firebase_auth"
         tools:ignore="ContentDescription" />
 
@@ -29,8 +29,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/getEmail"
+        <EditText
+            android:id="@+id/regEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Masukan Email"
@@ -47,8 +47,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailForm">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/getPassword"
+        <EditText
+            android:id="@+id/regPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -56,33 +56,16 @@
     </android.widget.LinearLayout>
 
     <Button
-        android:id="@+id/login"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:text="Masuk"
-        app:layout_constraintEnd_toStartOf="@+id/register"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordForm"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="4dp"
-        tools:ignore="HardcodedText" />
-
-    <Button
-        android:id="@+id/register"
+        android:id="@+id/regUser"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:text="Daftar"
+        android:text="Daftarkan"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/login"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordForm"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="32dp"
         tools:ignore="HardcodedText" />
 
     <ProgressBar
@@ -90,9 +73,10 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regUser"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
