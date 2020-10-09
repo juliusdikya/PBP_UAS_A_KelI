@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">sewain</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <string name="btnSignIn">Sign In</string>
+    <string name="btnSignUp">Sign Up</string>
+
+
+
 </resources>
