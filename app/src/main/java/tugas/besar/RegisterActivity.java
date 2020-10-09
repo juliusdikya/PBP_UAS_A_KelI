@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -31,9 +32,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         //Inisialisasi Widget dan Membuat Objek dari Firebae Authenticaion
-        myEmail = findViewById(R.id.regEmail);
-        myPassword = findViewById(R.id.regPassword);
-        regButtton = findViewById(R.id.register);
+//        myEmail = findViewById(R.id.regEmail);
+////        myPassword = findViewById(R.id.regPassword);
+////        regButtton = findViewById(R.id.register);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         auth = FirebaseAuth.getInstance();
