@@ -16,7 +16,7 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
-    Button SignOut;
+    Button btnSewa, btnList, btnUser, SignOut;
     FirebaseAuth FirebaseAuth;
     private String CHANNEL_ID = "Channel 1";
 
@@ -24,7 +24,20 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        btnSewa = findViewById(R.id.btnSewa);
+        btnList = findViewById(R.id.btnList);
+        btnUser = findViewById(R.id.btnProfile);
         SignOut = findViewById(R.id.btnSignOut);
+
+        btnSewa.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+                Intent i = new Intent(HomeActivity.this,SewaActivity.class);
+                startActivity(i);
+           }
+        });
+
 
         SignOut.setOnClickListener(new View.OnClickListener() {
             @Override

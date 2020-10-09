@@ -14,8 +14,10 @@
     <string name="list">List Penyewa</string>
     <string name="profile">Edit Profile</string>
 
+    <string name="motor">Kode Motor</string>
+    <string name="hari">Durasi Sewa (Hari)</string>
 
-
-
+    <string name="btnKembali">Kembali</string>
+    <string name="btnProses">Proses</string>
 
 </resources>
