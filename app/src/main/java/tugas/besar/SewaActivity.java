@@ -1,5 +1,6 @@
 package tugas.besar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,8 +42,9 @@ public class SewaActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Kode Motor Kosong!",Toast.LENGTH_SHORT).show();
                 }else if(inputHari.getText().toString().equalsIgnoreCase("")){
                     Toast.makeText(getApplicationContext(),"Hari Kosong!",Toast.LENGTH_SHORT).show();
-//               }else if(cekSewa.contains("1")){
-//                    Toast.makeText(getApplicationContext(), "Password minimal tediri dari 6 digit", Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent i = new Intent(SewaActivity.this,CheckoutActivity.class);
+                    startActivity(i);
                 }
             }
         });

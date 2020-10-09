@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".SewaActivity"></activity>
+        <activity android:name=".CheckoutActivity"></activity>
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".SplashScreenActivity">
             <intent-filter>

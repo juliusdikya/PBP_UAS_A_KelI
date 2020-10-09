@@ -2,10 +2,10 @@ package tugas.besar;
 
 public class Motor{
     public String namaMotor;
-
     public String jenisMotor;
-    public double hargaSewa;
-    public Motor(String namaMotor, String jenisMotor, double hargaSewa) {
+    public int hargaSewa;
+
+    public Motor(String namaMotor, String jenisMotor, int hargaSewa) {
         this.namaMotor = namaMotor;
         this.jenisMotor = jenisMotor;
         this.hargaSewa = hargaSewa;
@@ -27,11 +27,11 @@ public class Motor{
         this.jenisMotor = jenisMotor;
     }
 
-    public double getHargaSewa() {
+    public int getHargaSewa() {
         return hargaSewa;
     }
 
-    public void setHargaSewa(double hargaSewa) {
+    public void setHargaSewa(int hargaSewa) {
         this.hargaSewa = hargaSewa;
     }
 
