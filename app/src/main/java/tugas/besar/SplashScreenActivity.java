@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
     private int waktu_loading=4000;
 
     //4000=4 detik
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
 
                 //setelah loading maka akan langsung berpindah ke home activity
-                Intent home= new Intent(MainActivity.this, LoginActivity.class);
+                Intent home= new Intent(SplashScreenActivity.this, LoginActivity.class);
                 startActivity(home);
                 finish();
 
