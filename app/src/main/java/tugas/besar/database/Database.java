@@ -46,33 +46,33 @@ public class Database extends SQLiteOpenHelper {
                 "");
 
         db.execSQL("insert into motor values (" +
-                "'Avanza'," +
-                "400000" +
+                "'CB 150 R'," +
+                "200000" +
                 ");" +
                 "");
         db.execSQL("insert into motor values (" +
-                "'Xenia'," +
-                "400000" +
+                "'R 15'," +
+                "200000" +
                 ");" +
                 "");
         db.execSQL("insert into motor values (" +
-                "'Ertiga'," +
-                "400000" +
+                "'Vario'," +
+                "100000" +
                 ");" +
                 "");
         db.execSQL("insert into motor values (" +
-                "'APV'," +
-                "400000" +
+                "'Mio'," +
+                "100000" +
                 ");" +
                 "");
         db.execSQL("insert into motor values (" +
-                "'Innova'," +
-                "500000" +
+                "'Supra'," +
+                "50000" +
                 ");" +
                 "");
         db.execSQL("insert into motor values (" +
-                "'Xpander'," +
-                "550000" +
+                "'Shogun'," +
+                "50000" +
                 ");" +
                 "");
     }

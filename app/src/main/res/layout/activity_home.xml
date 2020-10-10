@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    >
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,10 +15,11 @@
     android:background="@color/background">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo"
-        android:layout_gravity="center"/>
+        android:layout_width="248dp"
+        android:layout_height="241dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="-40dp"
+        android:src="@drawable/logo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,6 +27,7 @@
         android:text="Selamat Datang"
         android:textSize="20dp"
         android:layout_gravity="center"
+        android:layout_marginTop="-60dp"
         />
 
     <TextView
@@ -32,7 +39,23 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/btnProfile"
+            android:text="@string/profile"
+            android:layout_weight="0.8"
+            android:backgroundTint="@color/tombol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
@@ -49,7 +72,6 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
@@ -66,16 +88,17 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp">
 
         <Button
-            android:id="@+id/btnProfile"
-            android:text="@string/profile"
+            android:id="@+id/btnAbout"
+            android:text="@string/about"
             android:layout_weight="0.8"
-            android:backgroundTint="@color/tombol"
+            android:backgroundTint="@color/tombol2"
+            android:textColor="@color/greytext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -83,7 +106,24 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/btnLokasi"
+            android:text="@string/lokasi"
+            android:layout_weight="0.8"
+            android:backgroundTint="@color/tombol2"
+            android:textColor="@color/greytext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
@@ -92,10 +132,10 @@
             android:id="@+id/btnSignOut"
             android:text="@string/btnSignOut"
             android:layout_weight="0.8"
-            android:backgroundTint="@color/tombol"
+            android:backgroundTint="@color/out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
-
 </LinearLayout>
+</ScrollView>

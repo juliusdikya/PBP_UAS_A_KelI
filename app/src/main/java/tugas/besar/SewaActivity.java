@@ -1,10 +1,16 @@
 package tugas.besar;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +45,7 @@ public class SewaActivity extends AppCompatActivity implements OnItemSelectedLis
 
     EditText nama, id, no_hp, lama;
     Button selesai;
+    private String CHANNEL_ID = "Channel 1";
 
     String sNama, sId, sNo, sMerk, sLama;
     double dPromo;
@@ -49,6 +57,7 @@ public class SewaActivity extends AppCompatActivity implements OnItemSelectedLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setContentView(R.layout.activity_sewa);
 
 //        inputSewa = findViewById(R.id.inputSewa);
@@ -79,24 +88,18 @@ public class SewaActivity extends AppCompatActivity implements OnItemSelectedLis
                     return;
                 }
 
-                if (sMerk.equals("Avanza")) {
-                    iHarga = 400000;
-                } else if (sMerk.equals("Xenia")) {
-                    iHarga = 400000;
-                } else if (sMerk.equals("Ertiga")) {
-                    iHarga = 400000;
-                } else if (sMerk.equals("APV")) {
-                    iHarga = 450000;
-                } else if (sMerk.equals("Innova")) {
-                    iHarga = 500000;
-                } else if (sMerk.equals("Xpander")) {
-                    iHarga = 550000;
-                } else if (sMerk.equals("Pregio")) {
-                    iHarga = 550000;
-                } else if (sMerk.equals("Elf")) {
-                    iHarga = 700000;
-                } else if (sMerk.equals("Alphard")) {
-                    iHarga = 1500000;
+                if (sMerk.equals("CB 150 R ")) {
+                    iHarga = 200000;
+                } else if (sMerk.equals("R 15")) {
+                    iHarga = 200000;
+                } else if (sMerk.equals("Vario")) {
+                    iHarga = 100000;
+                } else if (sMerk.equals("Mio")) {
+                    iHarga = 100000;
+                } else if (sMerk.equals("Supra")) {
+                    iHarga = 50000;
+                } else if (sMerk.equals("Shogun")) {
+                    iHarga = 50000;
                 }
 
                 iLama = Integer.parseInt(sLama);
@@ -114,6 +117,8 @@ public class SewaActivity extends AppCompatActivity implements OnItemSelectedLis
                         iLama + "','" +
                         dTotal + "');");
                 PenyewaActivity.m.RefreshList();
+                createNotificationChannel();
+                addNotification();
                 finish();
 
             }
@@ -155,5 +160,30 @@ public class SewaActivity extends AppCompatActivity implements OnItemSelectedLis
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Channel 1";
+            String description = "This is Channel 1";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,name,importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    private void addNotification(){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("Berhasil!")
+                .setContentText("Anda Telah melakukan sewa motor!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        Intent notificationIntent = new Intent(this,HomeActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+        NotificationManager notification = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notification.notify(0,builder.build());
     }
 }

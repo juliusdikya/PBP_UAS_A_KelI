@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -35,15 +36,17 @@ public class PenyewaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setContentView(R.layout.activity_penyewa);
 
-        Button tambah = findViewById(R.id.tambahPenyewa);
+        Button btnKembali = findViewById(R.id.btnKembali);
 
-        tambah.setOnClickListener(new View.OnClickListener() {
+        btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent p = new Intent(PenyewaActivity.this, SewaActivity.class);
-                startActivity(p);
+                finish();
+//                Intent o = new Intent(SewaActivity.this, HomeActivity.class);
+//                startActivity(o);
             }
         });
 
@@ -51,7 +54,6 @@ public class PenyewaActivity extends AppCompatActivity {
         dbcenter = new Database(this);
 
         RefreshList();
-        setupToolbar();
 
     }
 
@@ -95,9 +97,9 @@ public class PenyewaActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         switch (item) {
                             case 0: {
-                                Intent i = new Intent(PenyewaActivity.this, DetailPenyewaActivity.class);
-                                i.putExtra("nama", selection);
-                                startActivity(i);
+                                Intent x = new Intent(PenyewaActivity.this, DetailPenyewaActivity.class);
+                                x.putExtra("nama", selection);
+                                startActivity(x);
                                 break;
                             }
                             case 1: {

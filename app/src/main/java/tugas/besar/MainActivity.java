@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setContentView(R.layout.activity_main);
         FirebaseAuthentication = FirebaseAuth.getInstance();
         //
@@ -56,36 +58,44 @@ public class MainActivity extends AppCompatActivity{
             }
         };
 
+        //Register Button
         SignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(email.getText().toString().equalsIgnoreCase("")){
-                    Toast.makeText(getApplicationContext(),"Email masih kosong",Toast.LENGTH_SHORT).show();
-                }else if(pass.getText().toString().equalsIgnoreCase("")){
-                    Toast.makeText(getApplicationContext(),"Password masih kosong",Toast.LENGTH_SHORT).show();
-                }else if(!validasiEmail(email.getText().toString().trim())){
-                    Toast.makeText(getApplicationContext(), "Email invalid", Toast.LENGTH_SHORT).show();
-                }else if(pass.getText().toString().length()<6){
-                    Toast.makeText(getApplicationContext(), "Password minimal tediri dari 6 digit", Toast.LENGTH_SHORT).show();
-                }else{
-//                    Toast.makeText(getApplicationContext(), "Sukses", Toast.LENGTH_SHORT).show();
-                    String input1 = email.getText().toString();
-                    String input2 = pass.getText().toString();
-                    FirebaseAuthentication.createUserWithEmailAndPassword(input1,input2).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()) {
-                                Toast.makeText(getApplicationContext(), "Sign Up Gagal, Harap Ulangi!", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(getApplicationContext(), "Sign Up Sukses!", Toast.LENGTH_SHORT).show();
-                                email.setText("");
-                                pass.setText("");
-                            }
-                        }
-                    });
-                }
-            }
-        });
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(MainActivity.this, RegisterActivity.class);
+            startActivity(i);
+        }});
+
+//        SignUp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(email.getText().toString().equalsIgnoreCase("")){
+//                    Toast.makeText(getApplicationContext(),"Email masih kosong",Toast.LENGTH_SHORT).show();
+//                }else if(pass.getText().toString().equalsIgnoreCase("")){
+//                    Toast.makeText(getApplicationContext(),"Password masih kosong",Toast.LENGTH_SHORT).show();
+//                }else if(!validasiEmail(email.getText().toString().trim())){
+//                    Toast.makeText(getApplicationContext(), "Email invalid", Toast.LENGTH_SHORT).show();
+//                }else if(pass.getText().toString().length()<6){
+//                    Toast.makeText(getApplicationContext(), "Password minimal tediri dari 6 digit", Toast.LENGTH_SHORT).show();
+//                }else{
+////                    Toast.makeText(getApplicationContext(), "Sukses", Toast.LENGTH_SHORT).show();
+//                    String input1 = email.getText().toString();
+//                    String input2 = pass.getText().toString();
+//                    FirebaseAuthentication.createUserWithEmailAndPassword(input1,input2).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                            if(!task.isSuccessful()) {
+//                                Toast.makeText(getApplicationContext(), "Sign Up Gagal, Harap Ulangi!", Toast.LENGTH_SHORT).show();
+//                            }else{
+//                                Toast.makeText(getApplicationContext(), "Sign Up Sukses!", Toast.LENGTH_SHORT).show();
+//                                email.setText("");
+//                                pass.setText("");
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        });
 
         SignIn.setOnClickListener(new View.OnClickListener() {
             @Override

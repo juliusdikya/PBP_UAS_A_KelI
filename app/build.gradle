@@ -25,6 +25,11 @@ android {
     buildFeatures{
         dataBinding true
     }
+
+    compileOptions{
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -43,5 +48,17 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
     implementation 'com.google.firebase:firebase-auth:19.4.0'
     implementation 'com.google.firebase:firebase-core:17.0.0'
+
+    def room_version = "2.2.5"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    //RECYCLER VIEW
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0'
 
 }

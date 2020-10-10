@@ -12,10 +12,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:text="Detail Penyewa Motor"
         android:textSize="20dp"
-        android:textColor="#000000"
+        android:textColor="@color/tombol"
         android:textStyle="bold"
         android:layout_gravity="center"
         />
@@ -50,21 +50,10 @@
                     android:layout_margin="10dp">
 
                     <TextView
-                        android:id="@+id/idPenyewa"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="Identitas Penyewa"
-                        android:textColor="@color/tombol"
-                        android:textSize="19sp"
-                        android:textStyle="bold" />
-
-                    <TextView
                         android:id="@+id/txtName"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_below="@+id/idPenyewa"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:text="Nama Penyewa :"
                         android:textColor="@android:color/black"
                         android:textSize="17sp" />
@@ -121,8 +110,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_below="@+id/HTelp"
-                        android:layout_marginTop="20dp"
-                        android:text="Merk Mobil :"
+                        android:layout_marginTop="10dp"
+                        android:text="Merk Motor :"
                         android:textColor="@android:color/black"
                         android:textSize="17sp" />
 
@@ -131,7 +120,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_below="@+id/txtMerk"
-                        android:text="Kijang Innova"
+                        android:text="Merk"
                         android:textColor="@color/colorPrimary"
                         android:textSize="17sp" />
 
@@ -198,5 +187,22 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnKembali"
+            android:layout_width="293dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.8"
+            android:backgroundTint="@color/tombol"
+            android:text="@string/btnKembali" />
+
+    </LinearLayout>
 
 </LinearLayout>

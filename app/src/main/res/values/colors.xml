@@ -6,4 +6,14 @@
 
     <color name="background">#F1FFEB</color>
     <color name="tombol">#419A1C</color>
+    <color name="tombol2">#ffd571</color>
+    <color name="out">#ed6663</color>
+    <color name="greytext">#797a7e</color>
+
+    <color name="mapboxWhite">#ffffff</color>
+    <color name="mapboxBlue">#4264fb</color>
+    <color name="mapboxGrayLight">#c6d2e1</color>
+    <color name="mapboxPink">#ee4e8b</color>
+    <color name="mapboxYellow">#d9d838</color>
+    <color name="mapboxRed">#b43b71</color>
 </resources>

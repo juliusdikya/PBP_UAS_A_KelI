@@ -1,91 +1,87 @@
 package tugas.besar;
 
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    //Deklarasi Variable
-    private TextInputEditText myEmail, myPassword;
-    private Button regButtton;
-    private ProgressBar progressBar;
-    private FirebaseAuth auth;
-    private String getEmail, getPassword;
+    EditText emailReg, passReg;
+    Button SignIn, SignUpReg;
+    FirebaseAuth FirebaseAuthentication;
+    private FirebaseAuth.AuthStateListener AuthStateListener;
+    private String CHANNEL_ID = "Channel 1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setContentView(R.layout.activity_register);
 
-        //Inisialisasi Widget dan Membuat Objek dari Firebae Authenticaion
-//        myEmail = findViewById(R.id.regEmail);
-////        myPassword = findViewById(R.id.regPassword);
-////        regButtton = findViewById(R.id.register);
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.GONE);
-        auth = FirebaseAuth.getInstance();
+        emailReg = findViewById(R.id.inputEmailReg);
+        passReg = findViewById(R.id.inputPasswordReg);
+        SignUpReg = findViewById(R.id.btnSignUpReg);
+        FirebaseAuthentication = FirebaseAuth.getInstance();
 
-        //Menyembunyikan / Hide Password
-        myPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-
-        regButtton.setOnClickListener(new View.OnClickListener() {
+        SignUpReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cekDataUser();
+                if(emailReg.getText().toString().equalsIgnoreCase("")){
+                    Toast.makeText(getApplicationContext(),"Email masih kosong",Toast.LENGTH_SHORT).show();
+                }else if(passReg.getText().toString().equalsIgnoreCase("")){
+                    Toast.makeText(getApplicationContext(),"Password masih kosong",Toast.LENGTH_SHORT).show();
+                }else if(!validasiEmail(emailReg.getText().toString().trim())){
+                    Toast.makeText(getApplicationContext(), "Email invalid", Toast.LENGTH_SHORT).show();
+                }else if(passReg.getText().toString().length()<6){
+                    Toast.makeText(getApplicationContext(), "Password minimal tediri dari 6 digit", Toast.LENGTH_SHORT).show();
+                }else{
+//                    Toast.makeText(getApplicationContext(), "Sukses", Toast.LENGTH_SHORT).show();
+                    String input1 = emailReg.getText().toString();
+                    String input2 = passReg.getText().toString();
+                    FirebaseAuthentication.createUserWithEmailAndPassword(input1,input2).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(!task.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(), "Sign Up Gagal, Harap Ulangi!", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Sign Up Sukses!", Toast.LENGTH_SHORT).show();
+                                emailReg.setText("");
+                                passReg.setText("");
+                                finish();
+                            }
+                        }
+                    });
+                }
             }
         });
     }
 
-    //Method ini digunakan untuk mengecek dan mendapatkan data yang dimasukan user
-    private void cekDataUser(){
-        //Mendapatkan dat yang diinputkan User
-        getEmail = myEmail.getText().toString();
-        getPassword = myPassword.getText().toString();
+    private boolean validasiEmail(String email){
 
-        //Mengecek apakah email dan sandi kosong atau tidak
-        if(TextUtils.isEmpty(getEmail) || TextUtils.isEmpty(getPassword)){
-            Toast.makeText(this, "Email atau Sandi Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
-        }else{
-            //Mengecek panjang karakter password baru yang akan didaftarkan
-            if(getPassword.length() < 6){
-                Toast.makeText(this, "Sandi Terlalu Pendek, Minimal 6 Karakter", Toast.LENGTH_SHORT).show();
-            }else {
-                progressBar.setVisibility(View.VISIBLE);
-                createUserAccount();
-            }
-        }
+        return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+                + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
     }
 
-    //Method ini digunakan untuk membuat akun baru user
-    private void createUserAccount(){
-        auth.createUserWithEmailAndPassword(getEmail, getPassword)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        //Mengecek status keberhasilan saat medaftarkan email dan sandi baru
-                        if(task.isSuccessful()){
-                            Toast.makeText(RegisterActivity.this, "Sign Up Success", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }else {
-                            Toast.makeText(RegisterActivity.this, "Terjadi Kesalahan, Silakan Coba Lagi", Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
-    }
 }

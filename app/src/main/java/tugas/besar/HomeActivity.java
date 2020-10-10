@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,21 +20,22 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
-    Button btnSewa, btnList, btnUser, SignOut;
+    Button btnSewa, btnList, btnUser, SignOut, btnLokasi, btnAbout;
     FirebaseAuth FirebaseAuth;
     private String CHANNEL_ID = "Channel 1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setContentView(R.layout.activity_home);
 
         btnSewa = findViewById(R.id.btnSewa);
         btnList = findViewById(R.id.btnList);
         btnUser = findViewById(R.id.btnProfile);
+        btnLokasi = findViewById(R.id.btnLokasi);
+        btnAbout = findViewById(R.id.btnAbout);
         SignOut = findViewById(R.id.btnSignOut);
-
-//        Button informasi = findViewById(R.id.btn_info_mobil);
 
         btnSewa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +50,30 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent p = new Intent(HomeActivity.this, PenyewaActivity.class);
                 startActivity(p);
+            }
+        });
+
+//        btnUser.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent a = new Intent(HomeActivity.this, SewaActivity.class);
+//                startActivity(a);
+//            }
+//        });
+
+        btnLokasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent z = new Intent(HomeActivity.this, GeolocationActivity.class);
+                startActivity(z);
+            }
+        });
+
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent m = new Intent(HomeActivity.this, AboutActivity.class);
+                startActivity(m);
             }
         });
 

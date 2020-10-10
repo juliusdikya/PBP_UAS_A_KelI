@@ -14,11 +14,11 @@ public class DaftarMotor {
         MOTOR.add(motor6);
 
     }
-    public static final Motor motor1 = new Motor("CB 150 R", "Kopling", 200000);
-    public static final Motor motor2 = new Motor("R15", "Kopling", 200000);
-    public static final Motor motor3 = new Motor("Vario", "Matic", 200000);
-    public static final Motor motor4 = new Motor("Mio", "Matic", 200000);
-    public static final Motor motor5 = new Motor("Supra", "Gigi", 200000);
-    public static final Motor motor6 = new Motor("Shogun", "Gigi", 200000);
+    public static final Motor motor1 = new Motor("CB 150 R",200000);
+    public static final Motor motor2 = new Motor("R15", 200000);
+    public static final Motor motor3 = new Motor("Vario", 100000);
+    public static final Motor motor4 = new Motor("Mio",  100000);
+    public static final Motor motor5 = new Motor("Supra",  50000);
+    public static final Motor motor6 = new Motor("Shogun",  50000);
 
 }
