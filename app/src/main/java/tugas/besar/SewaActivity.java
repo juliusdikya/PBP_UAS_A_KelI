@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import org.w3c.dom.Text;
 
@@ -29,14 +30,13 @@ import java.util.List;
 
 import tugas.besar.database.Database;
 
-public class SewaActivity extends AppCompatActivity {
+public class SewaActivity extends AppCompatActivity implements OnItemSelectedListener {
 
     private TextInputEditText inputSewa, inputHari;
     private Button btnProses;
+    private Spinner spinner;
 
     EditText nama, id, no_hp, lama;
-    RadioGroup promo;
-    RadioButton weekday, weekend;
     Button selesai;
 
     String sNama, sId, sNo, sMerk, sLama;
@@ -44,7 +44,6 @@ public class SewaActivity extends AppCompatActivity {
     int iLama, iPromo, iHarga;
     double dTotal;
 
-    private Spinner spinner;
     Database dbHelper;
 
     @Override
@@ -63,7 +62,7 @@ public class SewaActivity extends AppCompatActivity {
         no_hp = findViewById(R.id.eTHP);
         lama = findViewById(R.id.eTLamaSewa);
 
-//        spinner.setOnItemSelectedListener(R,);
+        spinner.setOnItemSelectedListener(this);
 
         loadSpinnerData();
 
@@ -139,12 +138,13 @@ public class SewaActivity extends AppCompatActivity {
         spinner.setAdapter(dataAdapter);
     }
 
-//    @Override
-//    public void onItemSelected(AdapterView parent, View view, int position, long id) {
-//        sMerk = parent.getItemAtPosition(position).toString();
-//    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView parent) {
-//    }
+    @Override
+    public void onItemSelected(AdapterView parent, View view, int position, long id) {
+        sMerk = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }
