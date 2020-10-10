@@ -15,6 +15,9 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class HomeActivity extends AppCompatActivity {
     Button btnSewa, btnList, btnUser, SignOut;
     FirebaseAuth FirebaseAuth;
@@ -30,13 +33,24 @@ public class HomeActivity extends AppCompatActivity {
         btnUser = findViewById(R.id.btnProfile);
         SignOut = findViewById(R.id.btnSignOut);
 
+//        Button informasi = findViewById(R.id.btn_info_mobil);
+
         btnSewa.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-                Intent i = new Intent(HomeActivity.this,SewaActivity.class);
-                startActivity(i);
-           }
+            @Override
+            public void onClick(View v) {
+                Intent a = new Intent(HomeActivity.this, SewaActivity.class);
+                startActivity(a);
+            }
         });
+
+        btnList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent p = new Intent(HomeActivity.this, PenyewaActivity.class);
+                startActivity(p);
+            }
+        });
+
 
 
         SignOut.setOnClickListener(new View.OnClickListener() {
@@ -47,9 +61,17 @@ public class HomeActivity extends AppCompatActivity {
                 addNotification();
                 Intent i = new Intent(HomeActivity.this,MainActivity.class);
                 startActivity(i);
-
             }
         });
+
+//        informasi.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent a = new Intent(MainActivity.this, DaftarMobilActivity.class);
+//                startActivity(a);
+//            }
+//        });
+
     }
 
     private void createNotificationChannel(){

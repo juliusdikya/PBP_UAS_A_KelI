@@ -20,4 +20,10 @@
     <string name="btnKembali">Kembali</string>
     <string name="btnProses">Proses</string>
 
+    <string name="nama_penyewa">Nama Penyewa <font color='red'>(*)</font></string>
+    <string name="noid">No.Identitas <font color='red'>(*)</font></string>
+    <string name="no_telp">No. Telp <font color='red'>(*)</font></string>
+    <string name="nama_motor">Nama Motor <font color='red'>(*)</font></string>
+    <string name="lama_sewa">Lama Sewa <font color='red'>(*)</font></string>
+
 </resources>

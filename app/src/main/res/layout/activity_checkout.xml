@@ -6,7 +6,7 @@
 
     <data>
         <variable
-            name="mtr"
+            name="motor"
             type="tugas.besar.Motor" />
     </data>
 
@@ -20,7 +20,7 @@
             android:layout_height="249dp"
             android:layout_centerInParent="true"
             android:orientation="vertical"
-            tools:context=".MainActivity">
+            tools:context=".CheckoutActivity">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="@{mtr.namaMotor}" />
+                android:text="@{motor.namaMotor}" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="@{mtr.jenisMotor}" />
+                android:text="@{motor.jenisMotor}" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="@{mtr.hargaSewa}" />
+                android:text="@{motor.hargaSewa}" />
         </LinearLayout>
     </RelativeLayout>
 </layout>

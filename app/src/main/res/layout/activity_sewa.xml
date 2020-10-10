@@ -28,48 +28,165 @@
         android:layout_gravity="center"
         />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/table" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_sewa_motor"
-        android:layout_marginTop="16dp"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/ic_baseline_motorcycle_24"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="3dp"
+        app:strokeColor="@color/tombol"
+        app:strokeWidth="2dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputSewa"
-            android:layout_width="269dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:autofillHints=""
-            android:hint="@string/motor"
-            android:inputType="number" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_hari"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/ic_baseline_access_time_24"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            <TextView
+                android:id="@+id/idSewa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Data Penyewa"
+                android:textColor="@color/tombol"
+                android:textSize="19sp"
+                android:textStyle="bold" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputHari"
-            android:layout_width="269dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:autofillHints=""
-            android:hint="@string/hari"
-            android:inputType="number" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/idSewa"
+                android:layout_marginTop="20dp"
+                android:text="@string/nama_penyewa"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/eTNama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtName"
+                android:hint="Masukkan Nama (Max 15 karakter)"
+                android:inputType="text"
+                android:maxLength="20"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtAlamat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/eTNama"
+                android:layout_marginTop="10dp"
+                android:text="@string/noid"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/eTId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtAlamat"
+                android:hint="Masukkan Nomor Identitas"
+                android:inputType="text"
+                android:maxLength="20"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtTlp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/eTId"
+                android:layout_marginTop="10dp"
+                android:text="@string/no_telp"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/eTHP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtTlp"
+                android:hint="Masukkan No. Telp/HP"
+                android:inputType="number"
+                android:maxLength="20"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtMerk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/eTHP"
+                android:layout_marginTop="20dp"
+                android:text="@string/nama_motor"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/txtMerk" />
+
+            <TextView
+                android:id="@+id/txtLmSewa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinner"
+                android:layout_marginTop="20dp"
+                android:text="@string/lama_sewa"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/eTLamaSewa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtLmSewa"
+                android:hint="Masukkan Lamanya Hari Penyewaan"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/input_sewa_motor"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:startIconDrawable="@drawable/ic_baseline_motorcycle_24"-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">-->
+
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:id="@+id/inputSewa"-->
+<!--            android:layout_width="269dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:autofillHints=""-->
+<!--            android:hint="@string/motor"-->
+<!--            android:inputType="number" />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/input_hari"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:startIconDrawable="@drawable/ic_baseline_access_time_24"-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">-->
+
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:id="@+id/inputHari"-->
+<!--            android:layout_width="269dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:autofillHints=""-->
+<!--            android:hint="@string/hari"-->
+<!--            android:inputType="number" />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
 
     <LinearLayout
@@ -99,6 +216,5 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
-
 
 </LinearLayout>
