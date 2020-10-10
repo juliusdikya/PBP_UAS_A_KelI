@@ -33,7 +33,7 @@ import tugas.besar.database.Database;
 public class SewaActivity extends AppCompatActivity implements OnItemSelectedListener {
 
     private TextInputEditText inputSewa, inputHari;
-    private Button btnProses;
+    private Button btnProses, btnKembali;
     private Spinner spinner;
 
     EditText nama, id, no_hp, lama;
@@ -55,6 +55,7 @@ public class SewaActivity extends AppCompatActivity implements OnItemSelectedLis
 //        inputHari =  findViewById(R.id.inputHari);
 
         btnProses = findViewById(R.id.btnProses);
+        btnKembali = findViewById(R.id.btnKembali);
         dbHelper = new Database(this);
         spinner = findViewById(R.id.spinner);
         nama = findViewById(R.id.eTNama);
@@ -103,19 +104,27 @@ public class SewaActivity extends AppCompatActivity implements OnItemSelectedLis
                 dTotal = (iHarga * iLama) - (iHarga * iLama * dPromo);
 
                 SQLiteDatabase dbH = dbHelper.getWritableDatabase();
-                dbH.execSQL("INSERT INTO penyewa (nama, alamat, no_hp) VALUES ('" +
+                dbH.execSQL("INSERT INTO penyewa (nama, id, no_hp) VALUES ('" +
                         sNama + "','" +
                         sId + "','" +
                         sNo + "');");
-                dbH.execSQL("INSERT INTO sewa (merk, nama, promo, lama, total) VALUES ('" +
+                dbH.execSQL("INSERT INTO sewa (merk, nama, lama, total) VALUES ('" +
                         sMerk + "','" +
                         sNama + "','" +
-                        iPromo + "','" +
                         iLama + "','" +
                         dTotal + "');");
                 PenyewaActivity.m.RefreshList();
                 finish();
 
+            }
+        });
+
+        btnKembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+//                Intent o = new Intent(SewaActivity.this, HomeActivity.class);
+//                startActivity(o);
             }
         });
     }

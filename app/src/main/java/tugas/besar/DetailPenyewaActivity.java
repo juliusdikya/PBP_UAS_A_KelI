@@ -14,7 +14,7 @@ import tugas.besar.database.Database;
 
 public class DetailPenyewaActivity extends AppCompatActivity {
 
-    String sNama, sAlamat, sHP, sMerk, sHarga;
+    String sNama, sId, sHP, sMerk, sHarga;
     int iLama, iPromo, iTotal;
     double dTotal;
 
@@ -35,17 +35,16 @@ public class DetailPenyewaActivity extends AppCompatActivity {
         if (cursor.getCount() > 0) {
             cursor.moveToPosition(0);
             sNama = cursor.getString(0);
-            sAlamat = cursor.getString(1);
+            sId = cursor.getString(1);
             sHP = cursor.getString(2);
             sMerk = cursor.getString(3);
             sHarga = cursor.getString(4);
-            iPromo = cursor.getInt(7);
-            iLama = cursor.getInt(8);
-            dTotal = cursor.getDouble(9);
+            iLama = cursor.getInt(7);
+            dTotal = cursor.getDouble(8);
         }
 
         TextView tvNama = findViewById(R.id.HNama);
-        TextView tvAlamat = findViewById(R.id.HAlamat);
+        TextView tvId = findViewById(R.id.HaId);
         TextView tvHP = findViewById(R.id.HTelp);
 
         TextView tvMerk = findViewById(R.id.HMerk);
@@ -55,7 +54,7 @@ public class DetailPenyewaActivity extends AppCompatActivity {
         TextView tvTotal = findViewById(R.id.HTotal);
 
         tvNama.setText("     " + sNama);
-        tvAlamat.setText("     " + sAlamat);
+        tvId.setText("     " + sId);
         tvHP.setText("     " + sHP);
 
         tvMerk.setText("     " + sMerk);

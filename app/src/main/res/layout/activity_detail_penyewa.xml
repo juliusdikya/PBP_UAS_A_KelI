@@ -89,7 +89,7 @@
                         android:textSize="17sp" />
 
                     <TextView
-                        android:id="@+id/HAlamat"
+                        android:id="@+id/HaId"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_below="@+id/txtNoId"
@@ -101,7 +101,7 @@
                         android:id="@+id/txtTlp"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_below="@+id/HAlamat"
+                        android:layout_below="@+id/HaId"
                         android:layout_marginTop="10dp"
                         android:text="No. Telp/HP :"
                         android:textColor="@android:color/black"
