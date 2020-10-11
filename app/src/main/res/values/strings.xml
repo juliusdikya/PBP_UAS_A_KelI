@@ -34,4 +34,8 @@
 
     <string name="tentangkami">Project SEWA.IN Made by Kelompok I. All Right Reserved</string>
 
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+
 </resources>
