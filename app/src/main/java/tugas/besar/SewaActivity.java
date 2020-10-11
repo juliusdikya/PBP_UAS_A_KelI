@@ -84,7 +84,7 @@ public class SewaActivity extends AppCompatActivity implements OnItemSelectedLis
                 sNo = no_hp.getText().toString();
                 sLama = lama.getText().toString();
                 if (sNama.isEmpty() || sId.isEmpty() || sNo.isEmpty() || sLama.isEmpty()) {
-                    Toast.makeText(SewaActivity.this, "(*) tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SewaActivity.this, "Semua field harus diisi!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -116,9 +116,10 @@ public class SewaActivity extends AppCompatActivity implements OnItemSelectedLis
                         sNama + "','" +
                         iLama + "','" +
                         dTotal + "');");
-                PenyewaActivity.m.RefreshList();
+//                PenyewaActivity.m.RefreshList();
                 createNotificationChannel();
                 addNotification();
+                Toast.makeText(SewaActivity.this,"Sewa berhasil!",Toast.LENGTH_SHORT).show();
                 finish();
 
             }

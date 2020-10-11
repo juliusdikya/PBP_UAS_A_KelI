@@ -13,14 +13,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-    Button btnSewa, btnList, btnUser, SignOut, btnLokasi, btnAbout;
+    Button btnSewa, btnList, btnUser, SignOut, btnLokasi, btnAbout, btnListMotor;
     FirebaseAuth FirebaseAuth;
     private String CHANNEL_ID = "Channel 1";
 
@@ -36,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         btnLokasi = findViewById(R.id.btnLokasi);
         btnAbout = findViewById(R.id.btnAbout);
         SignOut = findViewById(R.id.btnSignOut);
+        btnListMotor = findViewById(R.id.btnListMotor);
 
         btnSewa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +64,14 @@ public class HomeActivity extends AppCompatActivity {
 //            }
 //        });
 
+        btnListMotor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent a = new Intent(HomeActivity.this, ListMotorActivity.class);
+                startActivity(a);
+            }
+        });
+
         btnLokasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,20 +94,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                createNotificationChannel();
-                addNotification();
                 Intent i = new Intent(HomeActivity.this,MainActivity.class);
                 startActivity(i);
+                Toast.makeText(HomeActivity.this,"Sign Out Sukses",Toast.LENGTH_SHORT).show();
             }
         });
 
-//        informasi.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent a = new Intent(MainActivity.this, DaftarMobilActivity.class);
-//                startActivity(a);
-//            }
-//        });
 
     }
 

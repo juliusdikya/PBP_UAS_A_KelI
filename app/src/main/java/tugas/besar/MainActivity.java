@@ -118,8 +118,6 @@ public class MainActivity extends AppCompatActivity{
                                 Toast.makeText(getApplicationContext(), "Password salah!", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getApplicationContext(), "Sign In Sukses!", Toast.LENGTH_SHORT).show();
-                                createNotificationChannel();
-                                addNotification();
                                 Intent i = new Intent(MainActivity.this,HomeActivity.class);
                                 startActivity(i);
                             }

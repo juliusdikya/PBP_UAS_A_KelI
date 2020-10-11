@@ -71,14 +71,30 @@
     </LinearLayout>
 
     <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <Button
+        android:id="@+id/btnList"
+        android:text="@string/list"
+        android:layout_weight="0.8"
+        android:backgroundTint="@color/tombol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/btnList"
-            android:text="@string/list"
+            android:id="@+id/btnListMotor"
+            android:text="@string/listMotor"
             android:layout_weight="0.8"
             android:backgroundTint="@color/tombol"
             android:layout_width="match_parent"
@@ -103,6 +119,9 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+
+
 
     <LinearLayout
         android:orientation="horizontal"

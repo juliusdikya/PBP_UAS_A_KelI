@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ListMotorActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".SewaActivity"></activity>
         <activity android:name=".PenyewaActivity"></activity>
