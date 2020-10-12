@@ -23,6 +23,7 @@
     <string name="hari">Durasi Sewa (Hari)</string>
 
     <string name="btnKembali">Kembali</string>
+    <string name="btnSimpan">Simpan</string>
     <string name="btnProses">Proses</string>
 
     <string name="nama_penyewa">Nama Penyewa <font color='red'>(*)</font></string>

@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
 public class RegisterActivity extends AppCompatActivity {
 
     TextInputLayout input_nama, input_email, input_password;
-    TextInputEditText emailReg, passReg;
+    TextInputEditText emailReg, passReg, namaReg;
     Button SignIn, SignUpReg;
     FirebaseAuth FirebaseAuthentication;
     private FirebaseAuth.AuthStateListener AuthStateListener;
@@ -59,20 +59,24 @@ public class RegisterActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setContentView(R.layout.activity_register);
 
-        emailReg = findViewById(R.id.inputEmailReg);
-        passReg = findViewById(R.id.inputPasswordReg);
         SignUpReg = findViewById(R.id.btnSignUpReg);
         FirebaseAuthentication = FirebaseAuth.getInstance();
 
-        input_nama = findViewById(R.id.input_nama);
-        input_email = findViewById(R.id.input_email);
-        input_password = findViewById(R.id.input_password);
+        namaReg = (TextInputEditText) findViewById(R.id.namaReg);
+        emailReg =(TextInputEditText) findViewById(R.id.emailReg);
+        passReg = (TextInputEditText) findViewById(R.id.passwordReg);
+
+        input_nama = (TextInputLayout) findViewById(R.id.input_nama);
+        input_email = (TextInputLayout) findViewById(R.id.input_email);
+        input_password =(TextInputLayout) findViewById(R.id.input_password);
 
         String nama = input_nama.getEditText().getText().toString();
         String email = input_email.getEditText().getText().toString();
         String password = input_password.getEditText().getText().toString();
 
-        UserHelper helperClass = new UserHelper(nama, email, password);
+        String namaRegis = this.namaReg.getText().toString();
+        String emailRegis = this.emailReg.getText().toString();
+        String passwordRegis = this.passReg.getText().toString();
 
         SignUpReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 hashMap.put("nama",nama);
                                 hashMap.put("email",email);
                                 hashMap.put("password",password);
+//                                hashMap.put("imageURL","default");
 
                                 reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override

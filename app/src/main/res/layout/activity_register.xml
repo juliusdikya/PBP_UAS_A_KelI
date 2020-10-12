@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:background="@color/background">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -48,7 +57,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputEmailReg"
+            android:id="@+id/emailReg"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:hint="@string/email"
@@ -64,7 +73,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputPasswordReg"
+            android:id="@+id/passwordReg"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:hint="@string/password"
@@ -89,3 +98,4 @@
 
     </LinearLayout>
 </LinearLayout>
+</ScrollView>

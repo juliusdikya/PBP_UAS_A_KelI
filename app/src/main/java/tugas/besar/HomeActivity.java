@@ -56,13 +56,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-//        btnUser.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent a = new Intent(HomeActivity.this, SewaActivity.class);
-//                startActivity(a);
-//            }
-//        });
+        btnUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent a = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(a);
+            }
+        });
 
         btnListMotor.setOnClickListener(new View.OnClickListener() {
             @Override

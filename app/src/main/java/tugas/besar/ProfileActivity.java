@@ -1,152 +1,353 @@
-//package tugas.besar;
-//
-//
-//import android.app.AlertDialog;
-//import android.content.DialogInterface;
-//import android.graphics.Color;
-//import android.os.AsyncTask;
-//import android.os.Bundle;
-//import android.provider.ContactsContract;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.Button;
-//import android.widget.LinearLayout;
-//import android.widget.Toast;
-//import androidx.annotation.NonNull;
-//import androidx.annotation.Nullable;
-//import androidx.appcompat.app.AppCompatDelegate;
-//import androidx.fragment.app.Fragment;
-//import androidx.fragment.app.FragmentTransaction;
-//import com.google.android.material.textfield.TextInputEditText;
-//import com.google.android.material.textfield.TextInputLayout;
-//
-//public class ProfileActivity extends Fragment {
-//
-//
-//    TextInputEditText nameText;
-//
-//    TextInputLayout layoutName;
-//
-//    Button saveBtn, deleteBtn, cancelBtn;
-//
-//
-//    ContactsContract.Profile profile;
-//
-//
-//    LinearLayout ll;
-//
-//    int darkM = AppCompatDelegate.MODE_NIGHT_YES;
-//    Profile profile;
-//
-//
-//    public void UpdateProfil() {
-//
-//        // Required empty public constructor
-//
-//    }
-//
-//
-//    @Override
-//
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//
-//        View view = inflater.inflate(R.layout.activity_profile container, false);
-//
-//        Profile = (profile) getArguments().getSerializable("guru");
-//        nameText = view.findViewById(R.id.input_name);
-//        layoutName = view.findViewById(R.id.input_name_layout);
-//        ll = (LinearLayout) view.findViewById(R.id.linearLayout);
-//        if (AppCompatDelegate.getDefaultNightMode() == darkM)
-//
-//        {
-//            ll.setBackgroundColor(Color.parseColor("#141414"));
-//        }
-//        else
-//        {
-//            ll.setBackgroundColor(Color.parseColor("#FFFFFF"));
-//        }
-//
-//        saveBtn = view.findViewById(R.id.btn_update);
-//        deleteBtn = view.findViewById(R.id.btn_delete);
-//        cancelBtn = view.findViewById(R.id.btn_cancel);
-//        try {
-//
-//            nameText.setText(profile.getFullName());
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return view;
-//    }
-//
-//
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        saveBtn.setOnClickListener(new View.OnClickListener() {
+package tugas.besar;
+
+import android.Manifest;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.bumptech.glide.Glide;
+import tugas.besar.UserHelper;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+
+
+public class ProfileActivity extends AppCompatActivity {
+
+    private String CHANNEL_ID = "Channel 1";
+
+    private int REQUEST_IMAGE_CAPTURE = 100;
+    private int RESULT_OK = -1;
+    private int PERMISSION_CODE = 1001;
+    private int IMAGE_PICK_CODE = 1001;
+    private Toolbar toolbar;
+
+    private FirebaseUser user;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
+
+
+    private TextInputLayout layout_name, layout_email;
+    private TextInputEditText input_name, input_email;
+
+    String name, email, username, number;
+
+    private static final String TAG = "ProfileActivity";
+
+    public ImageView image_view;
+    Button btn_update, btn_back;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN );
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        layout_name = findViewById(R.id.input_nama);
+        layout_email = findViewById(R.id.input_email);
+
+        input_name = findViewById(R.id.namaReg);
+        input_email = findViewById(R.id.emailReg);
+
+        image_view = findViewById(R.id.image_acc_view);
+        btn_update = findViewById(R.id.btnSimpan);
+        btn_back = findViewById(R.id.btnKembali);
+        RelativeLayout image_layout = findViewById(R.id.image_acc_layout);
+
+        if (user != null) {
+            if(user.getPhotoUrl() != null){
+                Glide.with(ProfileActivity.this)
+                        .load(user.getPhotoUrl())
+                        .into(image_view);
+            }
+        }
+
+//        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+//        databaseReference.addValueEventListener(new ValueEventListener() {
 //            @Override
-//            public void onClick(View v) {
-//                if(nameText.getText().toString().isEmpty() ){
-//                    layoutName.setError("Please fill name correctly.");
-//                }
-//                else
-//                {
-//                    profile.setFullName(nameText.getText().toString());
-//                    update(profile);
-//                }
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                UserHelper userHelper = snapshot.getValue(UserHelper.class);
+//                assert userHelper != null;
+//                input_name.setText(userHelper.getNama());
+//                input_email.setText(userHelper.getEmail());
 //            }
 //
-//        });
-//
-//
-//        deleteBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void onClick(View v) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//                builder.setTitle("Are you sure to delete?");
-//                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        delete(profile);
-//                    }
-//                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                    }
-//                })
-//                        .show();
-//            }
-//        });
+//            public void onCancelled(@NonNull DatabaseError error) {
 //
-//        cancelBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                transaction.hide(UpdateProfile.this).commit();
 //            }
 //        });
-//    }
-//
-//    private void update(final Profile profile){
-//        class UpdateUser extends AsyncTask<Void, Void, Void> {
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//                DatabaseClient.getInstance(getActivity().getApplicationContext()).getDatabase()
-//                        .guruDao()
-//                        .update(profile);
-//                return null;
-//            }
-//            @Override
-//            protected void onPostExecute(Void aVoid) {
-//                super.onPostExecute(aVoid);
-//                Toast.makeText(getActivity().getApplicationContext(), "Guru updated", Toast.LENGTH_SHORT).show();
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                transaction.hide(UpdateProfile.this).commit();
-//            }
-//        }
-//        UpdateUser update = new UpdateUser();
-//        update.execute();
-//
-//    }
-//}
+
+        btn_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(ProfileActivity.this);
+                alert.setMessage("Update Data?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()                 {
+
+                            public void onClick(DialogInterface dialog, int which) {
+
+//                                updateData();
+
+                            }
+                        }).setNegativeButton("No", null);
+
+                AlertDialog alert1 = alert.create();
+                alert1.show();
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ProfileActivity.this, HomeActivity.class);
+                startActivity(i);
+            }
+        });
+
+        if (ContextCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{
+                    Manifest.permission.CAMERA
+            }, 101);
+        }
+
+        image_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectPicture();
+            }
+        });
+    }
+
+    private void selectPicture() {
+        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+        builder.setTitle("Add Photo");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals("Take Photo"))
+                {
+                    takePictureIntent();
+                }
+                else if (options[item].equals("Choose from Gallery"))
+                {
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                        if(ActivityCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                            String[] permissions = { Manifest.permission.READ_EXTERNAL_STORAGE };
+                            requestPermissions(permissions, PERMISSION_CODE);
+                        }
+                        else{
+                            pickImageFromGallery();
+                        }
+                    }
+                }
+                else if (options[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+
+
+    private void pickImageFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_PICK_CODE);
+    }
+
+    private void takePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(ProfileActivity.this.getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            pickImageFromGallery();
+        }
+        else{
+            Toast.makeText(ProfileActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void updateData(){
+        databaseReference.child("name").setValue(layout_name.getEditText().getText().toString());
+        databaseReference.child("email").setValue(layout_email.getEditText().getText().toString());
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            image_view.setImageBitmap(imageBitmap);
+            uploadHandle(imageBitmap);
+        }
+        else if(requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK){
+            Uri uri = data.getData();
+
+            final ProgressDialog progressDialog = new ProgressDialog(ProfileActivity.this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            image_view.setImageURI(uri);
+
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            final StorageReference ref = FirebaseStorage.getInstance().getReference()
+                    .child("profileImages")
+                    .child(uid + ".jpeg");
+
+            ref.putFile(uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            getDownloadUrl(ref);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(ProfileActivity.this, e.getCause().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+    private void uploadHandle(Bitmap bitmap) {
+
+        final ProgressDialog progressDialog = new ProgressDialog(ProfileActivity.this);
+        progressDialog.setTitle("Uploading...");
+        progressDialog.show();
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final StorageReference reference = FirebaseStorage.getInstance().getReference()
+                .child("profile_images")
+                .child(uid + ".jpeg");
+
+        reference.putBytes(byteArrayOutputStream.toByteArray())
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressDialog.dismiss();
+                        getDownloadUrl(reference);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(ProfileActivity.this, e.getCause().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void getDownloadUrl(StorageReference reference) {
+
+        reference.getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        setUserProfileUrl(uri);
+                    }
+                });
+    }
+    private void setUserProfileUrl(Uri uri){
+        FirebaseUser user  = FirebaseAuth.getInstance().getCurrentUser();
+
+        UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                .setPhotoUri(uri)
+                .build();
+
+        user.updateProfile(request)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(ProfileActivity.this, "Update successfully", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProfileActivity.this, "Profile image failed...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

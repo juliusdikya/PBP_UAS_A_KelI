@@ -3,24 +3,22 @@ package tugas.besar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
-import com.mapbox.api.geocoding.v5.models.CarmenFeature;
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.api.directions.v5.models.DirectionsResponse;
+import com.mapbox.api.directions.v5.models.DirectionsRoute;
+import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -32,49 +30,45 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete;
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
+import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
+import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
+
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import timber.log.Timber;
 
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
 
+public class GeolocationActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener{
 
-import android.widget.Button;
+    private static final String DESTINATION_SYMBOL_LAYER_ID = "destination-symbol-layer-id";
+    private static final String DESTINATION_ICON_ID = "destination-icon-id";
+    private static final String DESTINATION_SOURCE_ID = "destination-source-id";
 
-import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
-import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
-import com.mapbox.api.directions.v5.models.DirectionsResponse;
-import com.mapbox.api.directions.v5.models.DirectionsRoute;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import android.util.Log;
-
-import android.view.Menu;
-
-public class GeolocationActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener, MapboxMap.OnMapClickListener {
-
-    //    private static final String DESTINATION_SYMBOL_LAYER_ID = "destination-symbol-layer-id";
-//    private static final String DESTINATION_ICON_ID = "destination-icon-id";
-//    private static final String DESTINATION_SOURCE_ID = "destination-source-id";
-    private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
-    private FloatingActionButton searchfab;
     private PermissionsManager permissionsManager;
     private MapboxMap mapboxMap;
     private MapView mapView;
-    private com.mapbox.geojson.Point origin;
-    // variables for calculating and drawing a route
+
+    private Marker destinationMarker;
+    private Point origin, destination;
     private DirectionsRoute currentRoute;
-    private static final String TAG = "DirectionsActivity";
     private NavigationMapRoute navigationMapRoute;
-    private Button button;
+
+    private LocationComponent locationComponent;
+    private int status = 0;
+
+    private FloatingActionButton btnUserLocation, btnOurLocation;
+    private Button btnStart;
 
 
     @Override
@@ -85,27 +79,117 @@ public class GeolocationActivity extends AppCompatActivity implements OnMapReady
 
         setContentView(R.layout.activity_geolocation);
 
-
         mapView = findViewById(R.id.mapView);
-        searchfab = findViewById(R.id.fab_location_search);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
-        searchfab.setOnClickListener(new View.OnClickListener() {
+        btnStart = findViewById(R.id.startButton);
+        btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new PlaceAutocomplete.IntentBuilder()
-                        .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.mapbox_access_token))
-                        .placeOptions(PlaceOptions.builder()
-                                .backgroundColor(Color.parseColor("#EEEEEE"))
-                                .limit(10)
-                                .build(PlaceOptions.MODE_CARDS))
-                        .build(GeolocationActivity.this);
-                startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+                if(status != 1) {
+                    NavigationLauncherOptions options = NavigationLauncherOptions.builder()
+                            .directionsRoute(currentRoute)
+                            .shouldSimulateRoute(true)
+                            .build();
+                    NavigationLauncher.startNavigation(GeolocationActivity.this, options);
+                }else if(status == 1){
+                    status = 0;
+                    getNavigation(origin,destination);
+                }
             }
         });
     }
 
+    private void initLayers(@NonNull Style loadedMapStyle){
+        loadedMapStyle.addImage(DESTINATION_ICON_ID,
+                BitmapFactory.decodeResource(this.getResources(), R.drawable.mapbox_marker_icon_default));
+        GeoJsonSource geoJsonSource = new GeoJsonSource(DESTINATION_SOURCE_ID);
+        loadedMapStyle.addSource(geoJsonSource);
+        SymbolLayer destinationSymbolLayer = new SymbolLayer(DESTINATION_SYMBOL_LAYER_ID,DESTINATION_SOURCE_ID);
+        destinationSymbolLayer.withProperties(
+                iconImage(DESTINATION_ICON_ID),
+                iconAllowOverlap(true),
+                iconIgnorePlacement(true)
+        );
+        loadedMapStyle.addLayer(destinationSymbolLayer);
+    }
+
+    @Override
+    public void onMapReady(@NonNull final MapboxMap mapboxMap) {
+        GeolocationActivity.this.mapboxMap = mapboxMap;
+
+        mapboxMap.setStyle(new Style.Builder().fromUri(Style.TRAFFIC_DAY),
+                new Style.OnStyleLoaded() {
+                    @Override
+                    public void onStyleLoaded(@NonNull Style style) {
+                        enableLocationComponent(style);
+
+                        initLayers(style);
+
+                        Toast.makeText(GeolocationActivity.this, "Ketuk icon untuk melihat lokasi", Toast.LENGTH_LONG).show();
+
+                        btnUserLocation = findViewById(R.id.back_to_camera_tracking_mode);
+                        btnUserLocation.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                locationComponent.setCameraMode(CameraMode.TRACKING);
+                                locationComponent.zoomWhileTracking(16,4000);
+                            }
+                        });
+
+                        btnOurLocation = findViewById(R.id.our_location);
+                        btnOurLocation.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                LatLng point = new LatLng(-6.170166,106.831375);
+
+                                if(destinationMarker != null) {
+                                    mapboxMap.removeMarker(destinationMarker);
+                                }
+
+                                destinationMarker = mapboxMap.addMarker(new MarkerOptions().position(point));
+
+                                destination = Point.fromLngLat(106.831375, -6.170166);
+
+                                mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(
+                                        new CameraPosition.Builder()
+                                                .target(point)
+                                                .zoom(16)
+                                                .build()), 3000);
+
+                                origin = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
+                                        locationComponent.getLastKnownLocation().getLatitude());
+
+                                btnStart.setEnabled(true);
+
+                                getRoute(origin, destination);
+                            }
+                        });
+                    }
+                });
+    }
+
+    @SuppressWarnings( {"MissingPermission"})
+    private void enableLocationComponent(@NonNull Style loadedMapStyle) {
+        if (PermissionsManager.areLocationPermissionsGranted(this)) {
+
+            locationComponent = mapboxMap.getLocationComponent();
+
+            locationComponent.activateLocationComponent(
+                    LocationComponentActivationOptions.builder(this, loadedMapStyle).build());
+
+            locationComponent.setLocationComponentEnabled(true);
+
+            locationComponent.setCameraMode(CameraMode.TRACKING);
+
+            locationComponent.setRenderMode(RenderMode.COMPASS);
+
+        } else {
+            permissionsManager = new PermissionsManager(this);
+            permissionsManager.requestLocationPermissions(this);
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -124,131 +208,16 @@ public class GeolocationActivity extends AppCompatActivity implements OnMapReady
                 @Override
                 public void onStyleLoaded(@NonNull Style style) {
                     enableLocationComponent(style);
+
                 }
             });
         } else {
-            Toast.makeText(this, "Permissions not granted", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Permission not granted", Toast.LENGTH_LONG).show();
             finish();
         }
     }
 
-    @Override
-    public void onMapReady(@NonNull final MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
-
-        mapboxMap.setStyle(getString(R.string.navigation_guidance_day), new Style.OnStyleLoaded() {
-            @Override
-            public void onStyleLoaded(@NonNull Style style) {
-                enableLocationComponent(style);
-
-
-                addDestinationIconSymbolLayer(style);
-
-                mapboxMap.addOnMapClickListener(GeolocationActivity.this);
-
-                button = findViewById(R.id.startButton);
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean simulateRoute = true;
-                        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
-                                .directionsRoute(currentRoute)
-                                .shouldSimulateRoute(simulateRoute)
-                                .build();
-// Call this method with Context from within an Activity
-                        NavigationLauncher.startNavigation(GeolocationActivity.this, options);
-                    }
-                });
-            }
-        });
-    }
-
-
-    private void addDestinationIconSymbolLayer(@NonNull Style loadedMapStyle) {
-        loadedMapStyle.addImage("destination-icon-id",
-                BitmapFactory.decodeResource(this.getResources(), R.drawable.mapbox_marker_icon_default));
-        GeoJsonSource geoJsonSource = new GeoJsonSource("destination-source-id");
-        loadedMapStyle.addSource(geoJsonSource);
-        SymbolLayer destinationSymbolLayer = new SymbolLayer("destination-symbol-layer-id", "destination-source-id");
-        destinationSymbolLayer.withProperties(
-                iconImage("destination-icon-id"),
-                iconAllowOverlap(true),
-                iconIgnorePlacement(true)
-        );
-        loadedMapStyle.addLayer(destinationSymbolLayer);
-    }
-
-
-    @SuppressLint("MissingPermission")
-    private void enableLocationComponent(@NonNull Style loadedMapStyle) {
-        if (PermissionsManager.areLocationPermissionsGranted(this)) {
-            LocationComponent locationComponent = mapboxMap.getLocationComponent();
-
-            locationComponent.activateLocationComponent(
-                    LocationComponentActivationOptions.builder(this, loadedMapStyle).build()
-            );
-
-            locationComponent.setLocationComponentEnabled(true);
-
-            locationComponent.setCameraMode(CameraMode.TRACKING);
-
-            locationComponent.setRenderMode(RenderMode.COMPASS);
-            this.origin = com.mapbox.geojson.Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
-                    locationComponent.getLastKnownLocation().getLatitude());
-        } else {
-            permissionsManager = new PermissionsManager(this);
-            permissionsManager.requestLocationPermissions(this);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
-            CarmenFeature selectedCarmenFeature = PlaceAutocomplete.getPlace(data);
-
-            if (mapboxMap != null) {
-                Style style = mapboxMap.getStyle();
-                if (style != null) {
-                    GeoJsonSource source = style.getSourceAs("geojsonSourceLayerId");
-                    if (source != null) {
-                        source.setGeoJson(FeatureCollection.fromFeatures(
-                                new Feature[]{Feature.fromJson(selectedCarmenFeature.toJson())}));
-                    }
-
-                    mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(
-                            new CameraPosition.Builder()
-                                    .target(new LatLng(((com.mapbox.geojson.Point) selectedCarmenFeature.geometry()).latitude(),
-                                            ((com.mapbox.geojson.Point) selectedCarmenFeature.geometry()).longitude()))
-                                    .zoom(14)
-                                    .build()), 4000);
-                }
-            }
-        }
-    }
-
-    @SuppressWarnings({"MissingPermission"})
-    @Override
-    public boolean onMapClick(@NonNull LatLng point) {
-        LocationComponent locationComponent = mapboxMap.getLocationComponent();
-
-        com.mapbox.geojson.Point destinationPoint = com.mapbox.geojson.Point.fromLngLat(point.getLongitude(), point.getLatitude());
-        com.mapbox.geojson.Point originPoint = com.mapbox.geojson.Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
-                locationComponent.getLastKnownLocation().getLatitude());
-
-
-        GeoJsonSource source = mapboxMap.getStyle().getSourceAs("destination-source-id");
-        if (source != null) {
-            source.setGeoJson(Feature.fromGeometry(destinationPoint));
-        }
-        getRoute(originPoint, destinationPoint);
-
-        button.setEnabled(true);
-        button.setBackgroundResource(R.color.mapboxBlue);
-        return true;
-    }
-
-    private void getRoute( com.mapbox.geojson.Point origin,  com.mapbox.geojson.Point destination) {
+    private void getRoute(Point origin, Point destination) {
         NavigationRoute.builder(this)
                 .accessToken(Mapbox.getAccessToken())
                 .origin(origin)
@@ -258,35 +227,69 @@ public class GeolocationActivity extends AppCompatActivity implements OnMapReady
                     @Override
                     public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
                         // You can get the generic HTTP info about the response
-                        Log.d(TAG, "Response code: " + response.code());
+                        Timber.d("Response code: " + response.code());
                         if (response.body() == null) {
-                            Log.e(TAG, "No routes found, make sure you set the right user and access token.");
+                            Timber.e("No routes found, make sure you set the right user and access token.");
                             return;
                         } else if (response.body().routes().size() < 1) {
-                            Log.e(TAG, "No routes found");
+                            Timber.e("No routes found");
                             return;
                         }
 
                         currentRoute = response.body().routes().get(0);
-
-                        // Draw the route on the map
-                        if (navigationMapRoute != null) {
+                        if(navigationMapRoute != null){
                             navigationMapRoute.removeRoute();
-                        } else {
-                            navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
+                        }else {
+                            navigationMapRoute = new NavigationMapRoute(null, mapView,mapboxMap );
                         }
                         navigationMapRoute.addRoute(currentRoute);
                     }
 
                     @Override
                     public void onFailure(Call<DirectionsResponse> call, Throwable throwable) {
-                        Log.e(TAG, "Error: " + throwable.getMessage());
+                        Timber.e("Error: " + throwable.getMessage());
+                        Toast.makeText(GeolocationActivity.this, "Error: " + throwable.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
+    private void getNavigation(Point originL, Point destination) {
+        NavigationRoute.builder(getApplicationContext())
+                .accessToken(getString(R.string.mapbox_access_token))
+                .origin(originL)
+                .destination(destination)
+                .build()
+                .getRoute(new Callback<DirectionsResponse>() {
+                    @Override
+                    public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
+                        Timber.d("Response code: " + response.code());
+                        if (response.body() == null) {
+                            Toast.makeText(GeolocationActivity.this, "No routes found, make sure you set the right user and access token.", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else if (response.body().routes().size() < 1) {
+                            Toast.makeText(GeolocationActivity.this, "No routes found", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        currentRoute = response.body().routes().get(0);
+
+                        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
+                                .directionsRoute(currentRoute)
+                                .shouldSimulateRoute(true)
+                                .build();
+                        NavigationLauncher.startNavigation(GeolocationActivity.this, options);
+                    }
+
+                    @Override
+                    public void onFailure(Call<DirectionsResponse> call, Throwable t) {
+                        Toast.makeText(GeolocationActivity.this, "Error: " + t.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
     @Override
+    @SuppressWarnings( {"MissingPermission"})
     protected void onStart() {
         super.onStart();
         mapView.onStart();
@@ -311,7 +314,7 @@ public class GeolocationActivity extends AppCompatActivity implements OnMapReady
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }

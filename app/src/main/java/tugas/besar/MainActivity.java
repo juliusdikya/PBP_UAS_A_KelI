@@ -23,6 +23,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity{
@@ -37,6 +41,30 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setContentView(R.layout.activity_main);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("news")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String mag = "Succesful";
+                        if (!task.isSuccessful()){
+                            mag = "Failed";
+                        }
+                        Toast.makeText(MainActivity.this, mag, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            String CHANNEL_ID = "Channel 1";
+            CharSequence name = "Channel 1";
+            String description = "This is Channel 1";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
         FirebaseAuthentication = FirebaseAuth.getInstance();
         //
         email = findViewById(R.id.inputEmail);
@@ -66,37 +94,7 @@ public class MainActivity extends AppCompatActivity{
             startActivity(i);
         }});
 
-//        SignUp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(email.getText().toString().equalsIgnoreCase("")){
-//                    Toast.makeText(getApplicationContext(),"Email masih kosong",Toast.LENGTH_SHORT).show();
-//                }else if(pass.getText().toString().equalsIgnoreCase("")){
-//                    Toast.makeText(getApplicationContext(),"Password masih kosong",Toast.LENGTH_SHORT).show();
-//                }else if(!validasiEmail(email.getText().toString().trim())){
-//                    Toast.makeText(getApplicationContext(), "Email invalid", Toast.LENGTH_SHORT).show();
-//                }else if(pass.getText().toString().length()<6){
-//                    Toast.makeText(getApplicationContext(), "Password minimal tediri dari 6 digit", Toast.LENGTH_SHORT).show();
-//                }else{
-////                    Toast.makeText(getApplicationContext(), "Sukses", Toast.LENGTH_SHORT).show();
-//                    String input1 = email.getText().toString();
-//                    String input2 = pass.getText().toString();
-//                    FirebaseAuthentication.createUserWithEmailAndPassword(input1,input2).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                            if(!task.isSuccessful()) {
-//                                Toast.makeText(getApplicationContext(), "Sign Up Gagal, Harap Ulangi!", Toast.LENGTH_SHORT).show();
-//                            }else{
-//                                Toast.makeText(getApplicationContext(), "Sign Up Sukses!", Toast.LENGTH_SHORT).show();
-//                                email.setText("");
-//                                pass.setText("");
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        });
-
+        //Sign In Button
         SignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,7 +151,7 @@ public class MainActivity extends AppCompatActivity{
         notification.notify(0,builder.build());
     }
 
-    private boolean validasiEmail(String email){
+     private boolean validasiEmail(String email){
 
         return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
                 + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
