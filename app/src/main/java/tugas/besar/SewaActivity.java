@@ -88,7 +88,7 @@ public class SewaActivity extends AppCompatActivity implements OnItemSelectedLis
                     return;
                 }
 
-                if (sMerk.equals("CB 150 R ")) {
+                if(sMerk.equals("CB 150 R")) {
                     iHarga = 200000;
                 } else if (sMerk.equals("R 15")) {
                     iHarga = 200000;
