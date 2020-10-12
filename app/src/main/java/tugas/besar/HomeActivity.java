@@ -88,8 +88,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
-
         SignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,8 +97,6 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(HomeActivity.this,"Sign Out Sukses",Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     private void createNotificationChannel(){
@@ -114,6 +110,7 @@ public class HomeActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
     private void addNotification(){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)

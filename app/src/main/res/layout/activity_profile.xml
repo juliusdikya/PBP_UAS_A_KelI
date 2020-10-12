@@ -78,7 +78,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/greytext"
-                                android:text="Tubes PBP A Kelompok I"/>
+                                android:text="Tugas Besar PBP A | Kelompok I"/>
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="match_parent"
