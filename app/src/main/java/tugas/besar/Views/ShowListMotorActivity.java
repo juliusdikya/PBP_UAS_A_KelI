@@ -1,4 +1,4 @@
-package tugas.besar;
+package tugas.besar.Views;
 
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +23,7 @@ import tugas.besar.API.InterfaceAPI;
 import tugas.besar.API.MotorResponse;
 import tugas.besar.Adapters.MotorRecyclerAdapter;
 import tugas.besar.Models.MotorDAO;
+import tugas.besar.R;
 
 public class ShowListMotorActivity extends AppCompatActivity {
 

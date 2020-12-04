@@ -10,15 +10,15 @@ public class MotorDAO implements Serializable {
     private String nama_motor;
 
     @SerializedName("harga_sewa")
-    private int harga_sewa;
+    private String harga_sewa;
 
     @SerializedName("durasi")
-    private int durasi;
+    private String durasi;
 
     @SerializedName("img_motor")
     private String img_motor;
 
-    public MotorDAO(String nama_motor, int harga_sewa, int durasi, String img_motor) {
+    public MotorDAO(String nama_motor, String harga_sewa, String durasi, String img_motor) {
         this.nama_motor=nama_motor;
         this.harga_sewa=harga_sewa;
         this.durasi=durasi;
@@ -29,7 +29,7 @@ public class MotorDAO implements Serializable {
         return nama_motor;
     }
 
-    public int getHarga_sewa() {
+    public String getHarga_sewa() {
         return harga_sewa;
     }
 
@@ -37,15 +37,15 @@ public class MotorDAO implements Serializable {
         this.nama_motor = nama_motor;
     }
 
-    public void setHarga_sewa(int harga_sewa) {
+    public void setHarga_sewa(String harga_sewa) {
         this.harga_sewa = harga_sewa;
     }
 
-    public int getDurasi() {
+    public String getDurasi() {
         return durasi;
     }
 
-    public void setDurasi(int durasi) {
+    public void setDurasi(String durasi) {
         this.durasi = durasi;
     }
 

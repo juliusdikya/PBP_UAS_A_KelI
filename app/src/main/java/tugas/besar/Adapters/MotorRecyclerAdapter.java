@@ -73,9 +73,9 @@ public class MotorRecyclerAdapter extends RecyclerView.Adapter<MotorRecyclerAdap
     @Override
     public void onBindViewHolder(@NonNull MotorRecyclerAdapter.RoomViewHolder holder, int position) {
 
-        final MotorDAO brg = filteredDataList.get(position);
-        holder.twNamaMotor.setText(brg.getNama_motor());
-        holder.twHargaSewa.setText(brg.getHarga_sewa());
+        final MotorDAO mtr = filteredDataList.get(position);
+        holder.twNamaMotor.setText(mtr.getNama_motor());
+        holder.twHargaSewa.setText(mtr.getHarga_sewa());
 
 //        holder.mParent.setOnClickListener(new View.OnClickListener() {
 //            @Override
