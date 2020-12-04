@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/navbar">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ibBack"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:foreground="?android:attr/selectableItemBackground"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:text="Tambah Motor"
+            android:textSize="18dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/navbar"
+        android:layout_above="@+id/footer">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/navbar"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="20dp"
+            app:cardElevation="6dp"
+            app:cardCornerRadius="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/twNamaMotor"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:hint="Nama Motor">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNamaMotor"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/twHargaSewa"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:hint="Harga Sewa">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etHargaSewa"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/twDurasi"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:hint="Durasi Sewa Maksimal">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDurasi"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/twImgMotor"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:hint="URL Foto Motor">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etImgMotor"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/footer"
+        android:layout_alignParentBottom="true"
+
+        android:padding="20dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCancel"
+            android:text="Cancel"
+
+            android:layout_alignParentLeft="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="10dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCreate"
+            android:text="Create"
+
+            android:layout_alignParentRight="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="10dp" />
+    </RelativeLayout>
+</RelativeLayout>
