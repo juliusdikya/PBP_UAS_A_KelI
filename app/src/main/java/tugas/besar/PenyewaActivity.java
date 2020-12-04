@@ -40,6 +40,7 @@ public class PenyewaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_penyewa);
 
         Button btnKembali = findViewById(R.id.btnKembali);
+        Button btnSewaUTS = findViewById(R.id.btnSewaUTS);
 
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +55,15 @@ public class PenyewaActivity extends AppCompatActivity {
         dbcenter = new Database(this);
 
         RefreshList();
+
+        btnSewaUTS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent o = new Intent(PenyewaActivity.this, SewaActivity.class);
+                startActivity(o);
+            }
+        });
+
 
     }
 

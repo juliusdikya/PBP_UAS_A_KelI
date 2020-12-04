@@ -10,6 +10,8 @@ import retrofit2.http.Query;
 
 public interface InterfaceAPI {
 
+    ///// MOTOR //////
+
     @GET("motor")
     Call<MotorResponse> getAllMotor(@Query("data") String data);
 
@@ -40,12 +42,14 @@ public interface InterfaceAPI {
                                     @Field("durasi") String durasi,
                                     @Field("img_motor") String img_motor);
 
+    ///// PENYEWA //////
+
     @GET("penyewa")
     Call<PenyewaResponse> getAllPenyewa(@Query("data") String data);
 
     @GET("penyewa/{id}")
     Call<PenyewaResponse> getPenyewaById(@Path("id") String id,
-                                     @Query("data") String data);
+                                         @Query("data") String data);
 
     @POST("penyewa")
     @FormUrlEncoded

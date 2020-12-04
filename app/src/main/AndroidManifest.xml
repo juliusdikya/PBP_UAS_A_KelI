@@ -13,17 +13,27 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".ListMotorActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".SewaActivity"></activity>
         <activity android:name=".PenyewaActivity"></activity>
         <activity android:name=".AboutActivity"></activity>
         <activity android:name=".DetailPenyewaActivity"></activity>
+        <activity android:name=".ListMotorActivity"></activity>
         <activity android:name=".GeolocationActivity"></activity>
+
+
+        <activity android:name=".AdminActivity"></activity>
+
         <activity android:name=".CreateMotorActivity"></activity>
-        <activity android:name=".Views.ShowListMotorActivity"></activity>
         <activity android:name=".Views.EditMotorActivity"></activity>
+        <activity android:name=".Views.ShowListMotorActivity"></activity>
+
+        <activity android:name=".CreatePenyewaActivity"></activity>
+        <activity android:name=".Views.EditPenyewaActivity"></activity>
+        <activity android:name=".Views.ShowListPenyewaActivity"></activity>
+
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".SplashScreenActivity">

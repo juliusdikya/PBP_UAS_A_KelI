@@ -98,36 +98,42 @@ public class MainActivity extends AppCompatActivity{
         SignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(email.getText().toString().equalsIgnoreCase("")){
-                    Toast.makeText(getApplicationContext(),"Email masih kosong",Toast.LENGTH_SHORT).show();
-                }else if(pass.getText().toString().equalsIgnoreCase("")){
-                    Toast.makeText(getApplicationContext(),"Password masih kosong",Toast.LENGTH_SHORT).show();
-                }else if(!validasiEmail(email.getText().toString().trim())){
-                    Toast.makeText(getApplicationContext(), "Email invalid", Toast.LENGTH_SHORT).show();
-                }else if(pass.getText().toString().length()<6){
-                    Toast.makeText(getApplicationContext(), "Password minimal tediri dari 6 digit", Toast.LENGTH_SHORT).show();
-                }else{
-                    String input1 = email.getText().toString();
-                    String input2 = pass.getText().toString();
-                    FirebaseAuthentication.signInWithEmailAndPassword(input1,input2).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()) {
-                                Toast.makeText(getApplicationContext(), "Password salah!", Toast.LENGTH_SHORT).show();
-                            }else{
-                                if(task.isSuccessful()){
-                                    if(FirebaseAuthentication.getCurrentUser().isEmailVerified()){
-                                        Toast.makeText(getApplicationContext(), "Sign In Sukses!", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                if(email.getText().toString().equalsIgnoreCase("admin") && pass.getText().toString().equalsIgnoreCase("admin"))
+                {
+                    Intent i = new Intent(MainActivity.this, AdminActivity.class);
+                    startActivity(i);
+                } else {
+                    if(email.getText().toString().equalsIgnoreCase("")){
+                        Toast.makeText(getApplicationContext(),"Email masih kosong",Toast.LENGTH_SHORT).show();
+                    }else if(pass.getText().toString().equalsIgnoreCase("")){
+                        Toast.makeText(getApplicationContext(),"Password masih kosong",Toast.LENGTH_SHORT).show();
+                    }else if(!validasiEmail(email.getText().toString().trim())){
+                        Toast.makeText(getApplicationContext(), "Email invalid", Toast.LENGTH_SHORT).show();
+                    }else if(pass.getText().toString().length()<6){
+                        Toast.makeText(getApplicationContext(), "Password minimal tediri dari 6 digit", Toast.LENGTH_SHORT).show();
+                    }else{
+                        String input1 = email.getText().toString();
+                        String input2 = pass.getText().toString();
+                        FirebaseAuthentication.signInWithEmailAndPassword(input1,input2).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(!task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(), "Password salah!", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    if(task.isSuccessful()){
+                                        if(FirebaseAuthentication.getCurrentUser().isEmailVerified()){
+                                            Toast.makeText(getApplicationContext(), "Sign In Sukses!", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                        } else {
+                                            Toast.makeText(MainActivity.this, "Email belum diverifikasi", Toast.LENGTH_SHORT).show();
+                                        }
                                     } else {
-                                        Toast.makeText(MainActivity.this, "Email belum diverifikasi", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                } else {
-                                    Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             }
         });

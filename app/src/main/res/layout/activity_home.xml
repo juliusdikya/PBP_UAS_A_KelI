@@ -62,7 +62,7 @@
 
         <Button
             android:id="@+id/btnSewa"
-            android:text="@string/sewa"
+            android:text="SEWA MOTOR"
             android:layout_weight="0.8"
             android:backgroundTint="@color/tombol"
             android:layout_width="match_parent"

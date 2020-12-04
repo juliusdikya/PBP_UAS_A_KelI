@@ -1,12 +1,26 @@
 package tugas.besar.API;
 
-public class PenyewaResponse {
-    public static final String ROOT_URL   = "https://sewain-pbp.tubespbp.xyz/public_html/";
-    public static final String ROOT_API   = ROOT_URL+ "api/";
-    public static final String URL_IMAGE  = ROOT_URL+"images/";
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public static final String URL_ADD    = ROOT_API+"penyewa";
-    public static final String URL_SELECT = ROOT_API+"penyewa";
-    public static final String URL_UPDATE = ROOT_API+"penyewa/update";
-    public static final String URL_DELETE = ROOT_API+"penyewa/delete";
+import java.util.List;
+
+import tugas.besar.Models.PenyewaDAO;
+
+public class PenyewaResponse {
+    @SerializedName("data")
+    @Expose
+    private List<PenyewaDAO> penyewas = null;
+
+    @SerializedName("message")
+    @Expose
+    private  String message;
+
+    public List<PenyewaDAO> getPenyewas(){ return penyewas;}
+
+    public String getMessage() { return message;}
+
+    public  void  setPenyewas(List<PenyewaDAO> users) { this.penyewas = penyewas;}
+
+    public void setMessage(String message) { this.message = message;}
 }

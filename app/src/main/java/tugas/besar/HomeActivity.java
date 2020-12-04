@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import tugas.besar.Views.ShowListMotorActivity;
+import tugas.besar.Views.ShowListPenyewaActivity;
 
 public class HomeActivity extends AppCompatActivity {
     Button btnSewa, btnList, btnUser, SignOut, btnLokasi, btnAbout, btnListMotor;
@@ -41,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
         btnSewa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a = new Intent(HomeActivity.this, CreateMotorActivity.class);
+                Intent a = new Intent(HomeActivity.this, PenyewaActivity.class);
                 startActivity(a);
             }
         });
@@ -49,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent p = new Intent(HomeActivity.this, PenyewaActivity.class);
+                Intent p = new Intent(HomeActivity.this, ShowListPenyewaActivity.class);
                 startActivity(p);
             }
         });
