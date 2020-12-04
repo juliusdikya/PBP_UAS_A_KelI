@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import tugas.besar.R;
 import tugas.besar.database.Database;
 
 public class DetailPenyewaActivity extends AppCompatActivity {

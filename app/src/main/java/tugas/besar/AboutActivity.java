@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import tugas.besar.R;
+
 public class AboutActivity extends AppCompatActivity {
 
     private Button btnKembali;

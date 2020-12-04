@@ -115,9 +115,16 @@ public class MainActivity extends AppCompatActivity{
                             if(!task.isSuccessful()) {
                                 Toast.makeText(getApplicationContext(), "Password salah!", Toast.LENGTH_SHORT).show();
                             }else{
-                                Toast.makeText(getApplicationContext(), "Sign In Sukses!", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(MainActivity.this,HomeActivity.class);
-                                startActivity(i);
+                                if(task.isSuccessful()){
+                                    if(FirebaseAuthentication.getCurrentUser().isEmailVerified()){
+                                        Toast.makeText(getApplicationContext(), "Sign In Sukses!", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                    } else {
+                                        Toast.makeText(MainActivity.this, "Email belum diverifikasi", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
                     });

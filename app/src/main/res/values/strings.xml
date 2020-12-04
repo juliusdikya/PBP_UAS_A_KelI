@@ -14,10 +14,10 @@
     <string name="password">Password</string>
     <string name="harga">Harga / Hari</string>
 
-    <string name="sewa">Sewa Motor</string>
+    <string name="sewa">Tambah Motor</string>
     <string name="list">List Penyewa</string>
     <string name="listMotor">List Motor</string>
-    <string name="profile">Edit Profil</string>
+    <string name="profile">Profil</string>
 
     <string name="motor">Kode Motor</string>
     <string name="hari">Durasi Sewa (Hari)</string>

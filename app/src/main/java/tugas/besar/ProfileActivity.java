@@ -68,7 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextInputLayout layout_name, layout_email;
     private TextInputEditText input_name, input_email;
 
-    String name, email, username, number;
+    String name, email;
 
     private static final String TAG = "ProfileActivity";
 
@@ -84,11 +84,11 @@ public class ProfileActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN );
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        layout_name = findViewById(R.id.input_nama);
-        layout_email = findViewById(R.id.input_email);
+        layout_name = findViewById(R.id.name);
+        layout_email = findViewById(R.id.email);
 
-        input_name = findViewById(R.id.namaReg);
-        input_email = findViewById(R.id.emailReg);
+        input_name = findViewById(R.id.input_nama);
+        input_email = findViewById(R.id.input_email);
 
         image_view = findViewById(R.id.image_acc_view);
         btn_update = findViewById(R.id.btnSimpan);
@@ -103,21 +103,21 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
 
-//        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                UserHelper userHelper = snapshot.getValue(UserHelper.class);
-//                assert userHelper != null;
-//                input_name.setText(userHelper.getNama());
-//                input_email.setText(userHelper.getEmail());
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserHelper userHelper = snapshot.getValue(UserHelper.class);
+                assert userHelper != null;
+                input_name.setText(userHelper.getNama());
+                input_email.setText(userHelper.getEmail());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                             public void onClick(DialogInterface dialog, int which) {
 
-//                                updateData();
+                                updateData();
 
                             }
                         }).setNegativeButton("No", null);
@@ -220,7 +220,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void updateData(){
-        databaseReference.child("name").setValue(layout_name.getEditText().getText().toString());
+        databaseReference.child("nama").setValue(layout_name.getEditText().getText().toString());
         databaseReference.child("email").setValue(layout_email.getEditText().getText().toString());
     }
 

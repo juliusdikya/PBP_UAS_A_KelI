@@ -7,6 +7,8 @@ import androidx.core.app.NotificationManagerCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import tugas.besar.R;
+
 public class MessagingService extends FirebaseMessagingService {
     private String CHANNEL_ID = "Channel 1";
 

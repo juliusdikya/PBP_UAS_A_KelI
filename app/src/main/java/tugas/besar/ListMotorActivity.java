@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import tugas.besar.databinding.ActivityListmotorBinding;
 

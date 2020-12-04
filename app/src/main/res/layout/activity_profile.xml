@@ -52,7 +52,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:id="@+id/cv_nama"
                     android:layout_rowWeight="1"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="8dp"
@@ -64,38 +63,34 @@
                         android:orientation="vertical"
                         android:padding="10dp">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nama"
-                            android:textColor="@color/tombol"/>
-                        <LinearLayout
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_marginBottom="10dp"
+                            android:hint="Nama"
+                            app:boxBackgroundColor="#00FFFFFF"
+                            app:boxStrokeColor="#FF9800"
+                            app:endIconTint="#FF9800"
+                            app:hintTextColor="#FF9800"
+                            app:startIconTint="#FF9800">
 
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/greytext"
-                                android:text="Tugas Besar PBP A | Kelompok I"/>
-
-                            <com.google.android.material.textview.MaterialTextView
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/input_nama"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="textEnd"
-                                android:text="Ubah"
-                                android:textColor="@color/tombol"/>
-                        </LinearLayout>
+                                android:drawablePadding="10dp"
+                                android:inputType="textPersonName" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:id="@+id/cv_tgl_lahir"
                     android:layout_rowWeight="1"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="8dp"
@@ -107,29 +102,25 @@
                         android:orientation="vertical"
                         android:padding="10dp">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/tombol"
-                            android:text="@string/email"/>
-                        <LinearLayout
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_marginBottom="10dp"
+                            android:hint="Email"
+                            app:boxBackgroundColor="#00FFFFFF"
+                            app:boxStrokeColor="#FF9800"
+                            app:endIconTint="#FF9800"
+                            app:hintTextColor="#FF9800"
+                            app:startIconTint="#FF9800">
 
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/greytext"
-                                android:text="test@gmail.com"/>
-
-                            <com.google.android.material.textview.MaterialTextView
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/input_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="textEnd"
-                                android:text="Ubah"
-                                android:textColor="@color/tombol"/>
-                        </LinearLayout>
+                                android:drawablePadding="10dp"
+                                android:inputType="textPersonName" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 

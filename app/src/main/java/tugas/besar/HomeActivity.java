@@ -17,10 +17,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 public class HomeActivity extends AppCompatActivity {
     Button btnSewa, btnList, btnUser, SignOut, btnLokasi, btnAbout, btnListMotor;
     FirebaseAuth FirebaseAuth;
@@ -43,7 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         btnSewa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a = new Intent(HomeActivity.this, SewaActivity.class);
+                Intent a = new Intent(HomeActivity.this, CreateMotorActivity.class);
                 startActivity(a);
             }
         });
@@ -67,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         btnListMotor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a = new Intent(HomeActivity.this, ListMotorActivity.class);
+                Intent a = new Intent(HomeActivity.this, ShowListMotorActivity.class);
                 startActivity(a);
             }
         });
