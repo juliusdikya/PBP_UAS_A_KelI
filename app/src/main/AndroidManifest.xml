@@ -23,6 +23,7 @@
         <activity android:name=".GeolocationActivity"></activity>
         <activity android:name=".CreateMotorActivity"></activity>
         <activity android:name=".Views.ShowListMotorActivity"></activity>
+        <activity android:name=".Views.EditMotorActivity"></activity>
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".SplashScreenActivity">

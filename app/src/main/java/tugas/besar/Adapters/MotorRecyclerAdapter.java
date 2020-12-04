@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import tugas.besar.DetailMotorFragment;
 import tugas.besar.Models.MotorDAO;
 import tugas.besar.R;
 
@@ -77,18 +78,18 @@ public class MotorRecyclerAdapter extends RecyclerView.Adapter<MotorRecyclerAdap
         holder.twNamaMotor.setText(mtr.getNama_motor());
         holder.twHargaSewa.setText(mtr.getHarga_sewa());
 
-//        holder.mParent.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-//                DetailUserFragment dialog = new DetailUserFragment();
-//                dialog.show(manager, "dialog");
-//
-//                Bundle args = new Bundle();
-//                args.putString("id", brg.getId());
-//                dialog.setArguments(args);
-//            }
-//        });
+        holder.mParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                DetailMotorFragment dialog = new DetailMotorFragment();
+                dialog.show(manager, "dialog");
+
+                Bundle args = new Bundle();
+                args.putString("id", mtr.getId());
+                dialog.setArguments(args);
+            }
+        });
     }
 
     @Override
@@ -98,13 +99,13 @@ public class MotorRecyclerAdapter extends RecyclerView.Adapter<MotorRecyclerAdap
 
     public class RoomViewHolder extends RecyclerView.ViewHolder{
         private TextView twNamaMotor, twHargaSewa;
-//        private LinearLayout mParent;
+        private LinearLayout mParent;
 
         public RoomViewHolder(@NonNull View itemView){
             super(itemView);
             twNamaMotor = itemView.findViewById(R.id.twNamaMotor);
             twHargaSewa = itemView.findViewById(R.id.twHargaSewa);
-//            mParent = itemView.findViewById(R.id.linearLayout);
+            mParent = itemView.findViewById(R.id.linearLayout);
         }
     }
 }

@@ -6,6 +6,9 @@ import java.io.Serializable;
 
 public class MotorDAO implements Serializable {
 
+    @SerializedName("id")
+    private String id;
+
     @SerializedName("nama_motor")
     private String nama_motor;
 
@@ -18,11 +21,20 @@ public class MotorDAO implements Serializable {
     @SerializedName("img_motor")
     private String img_motor;
 
-    public MotorDAO(String nama_motor, String harga_sewa, String durasi, String img_motor) {
+    public MotorDAO(String id, String nama_motor, String harga_sewa, String durasi, String img_motor) {
+        this.id=id;
         this.nama_motor=nama_motor;
         this.harga_sewa=harga_sewa;
         this.durasi=durasi;
         this.img_motor=img_motor;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNama_motor() {
