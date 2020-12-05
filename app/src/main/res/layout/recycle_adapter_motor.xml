@@ -13,10 +13,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:id="@+id/linearLayout"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <ImageView
+                android:id="@+id/ivUrl"
+                android:layout_width="110dp"
+                android:layout_height="110dp"></ImageView>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +50,8 @@
                 android:hint="Harga"
                 android:textSize="14dp" />
 
-
         </LinearLayout>
     </LinearLayout>
+
+
 </androidx.cardview.widget.CardView>

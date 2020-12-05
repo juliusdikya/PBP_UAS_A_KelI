@@ -22,7 +22,7 @@ import tugas.besar.DetailPenyewaFragment;
 import tugas.besar.Models.PenyewaDAO;
 import tugas.besar.R;
 
-public class PenyewaRecyclerAdapter extends RecyclerView.Adapter<PenyewaRecyclerAdapter.RoomViewHolder> implements Filterable {
+public class  PenyewaRecyclerAdapter extends RecyclerView.Adapter<PenyewaRecyclerAdapter.RoomViewHolder> implements Filterable {
     private List<PenyewaDAO> dataList;
     private List<PenyewaDAO> filteredDataList;
     private Context context;

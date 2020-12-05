@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +81,11 @@ public class MotorRecyclerAdapter extends RecyclerView.Adapter<MotorRecyclerAdap
         final MotorDAO mtr = filteredDataList.get(position);
         holder.twNamaMotor.setText(mtr.getNama_motor());
         holder.twHargaSewa.setText(mtr.getHarga_sewa());
+        Glide.with(context)
+                .load(mtr.getImg_motor())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(holder.ivUrl);
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,12 +108,15 @@ public class MotorRecyclerAdapter extends RecyclerView.Adapter<MotorRecyclerAdap
 
     public class RoomViewHolder extends RecyclerView.ViewHolder{
         private TextView twNamaMotor, twHargaSewa;
+        private ImageView ivUrl;
         private LinearLayout mParent;
 
         public RoomViewHolder(@NonNull View itemView){
             super(itemView);
             twNamaMotor = itemView.findViewById(R.id.twNamaMotor);
             twHargaSewa = itemView.findViewById(R.id.twHargaSewa);
+            ivUrl = itemView.findViewById(R.id.ivUrl);
+
             mParent = itemView.findViewById(R.id.linearLayout);
         }
     }
