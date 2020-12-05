@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Views.EditMotorActivity"
+    android:background="@color/background"
     >
 
     <LinearLayout
@@ -51,6 +52,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:src="@drawable/motor"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/twNamaMotor"

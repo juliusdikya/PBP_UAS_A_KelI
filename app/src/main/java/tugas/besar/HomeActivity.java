@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import tugas.besar.Views.ShowListMotorActivity;
+import tugas.besar.Views.ShowListMotorUser;
 import tugas.besar.Views.ShowListPenyewaActivity;
 
 public class HomeActivity extends AppCompatActivity {
@@ -66,7 +67,7 @@ public class HomeActivity extends AppCompatActivity {
         btnListMotor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a = new Intent(HomeActivity.this, ShowListMotorActivity.class);
+                Intent a = new Intent(HomeActivity.this, ShowListMotorUser.class);
                 startActivity(a);
             }
         });

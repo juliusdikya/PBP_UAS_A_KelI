@@ -90,6 +90,8 @@ public class ProfileActivity extends AppCompatActivity {
         input_name = findViewById(R.id.input_nama);
         input_email = findViewById(R.id.input_email);
 
+        input_email.setEnabled(false);
+
         image_view = findViewById(R.id.image_acc_view);
         btn_update = findViewById(R.id.btnSimpan);
         btn_back = findViewById(R.id.btnKembali);

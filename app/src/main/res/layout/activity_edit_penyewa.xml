@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Views.EditPenyewaActivity"
+    android:background="@color/background"
     >
 
     <LinearLayout
@@ -51,6 +52,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:src="@drawable/racer" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/twNamaPenyewa"

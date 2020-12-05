@@ -34,6 +34,8 @@
         <activity android:name=".Views.EditPenyewaActivity"></activity>
         <activity android:name=".Views.ShowListPenyewaActivity"></activity>
 
+        <activity android:name=".Views.ShowListMotorUser"></activity>
+
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".SplashScreenActivity">

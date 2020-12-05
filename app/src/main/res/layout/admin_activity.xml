@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminActivity">
+    tools:context=".AdminActivity"
+    android:background="@color/background">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +23,8 @@
                 android:layout_marginLeft="30dp"
                 android:textSize="25dp"
                 android:textStyle="bold"
-                android:text="Field Admin"/>
+                android:text="Field Admin"
+                android:textColor="@color/tombol"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,14 +59,16 @@
                     app:cardCornerRadius="6dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:layout_margin="12dp">
+                    android:layout_margin="12dp"
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:background="@color/tombol">
 
                         <ImageView
                             android:background="@drawable/ic_baseline_pedal_bike_24"
@@ -76,6 +80,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:text="Tambah Motor"
+                            android:textColor="@color/mapboxWhite"
                             android:textStyle="bold"/>
 
                     </LinearLayout>
@@ -111,6 +116,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:text="Show List Motor"
+                            android:textColor="@color/tombol"
                             android:textStyle="bold"/>
 
                     </LinearLayout>
@@ -133,7 +139,8 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:background="@color/tombol">
 
                         <ImageView
                             android:background="@drawable/ic_baseline_people_alt_24"
@@ -145,6 +152,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:text="Tambah Penyewa"
+                            android:textColor="@color/mapboxWhite"
                             android:textStyle="bold"/>
 
                     </LinearLayout>
@@ -180,6 +188,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:text="Show List Penyewa"
+                            android:textColor="@color/tombol"
                             android:textStyle="bold"/>
 
                     </LinearLayout>
