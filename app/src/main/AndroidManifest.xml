@@ -31,6 +31,7 @@
         <activity android:name=".Views.ShowListMotorActivity"></activity>
 
         <activity android:name=".CreatePenyewaActivity"></activity>
+        <activity android:name=".CreatePenyewaAdmin"></activity>
         <activity android:name=".Views.EditPenyewaActivity"></activity>
         <activity android:name=".Views.ShowListPenyewaActivity"></activity>
 

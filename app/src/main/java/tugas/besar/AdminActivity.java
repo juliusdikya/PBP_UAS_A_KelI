@@ -45,7 +45,7 @@ public class AdminActivity extends AppCompatActivity {
         cvCreatePenyewa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AdminActivity.this, CreatePenyewaActivity.class);
+                Intent i = new Intent(AdminActivity.this, CreatePenyewaAdmin.class);
                 startActivity(i);
             }
         });
