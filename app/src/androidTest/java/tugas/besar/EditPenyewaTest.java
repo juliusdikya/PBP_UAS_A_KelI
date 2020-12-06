@@ -347,7 +347,7 @@ public class EditPenyewaTest {
                                 childAtPosition(
                                         withId(R.id.twPembayaran),
                                         0),
-                                0),
+                                1),
                         isDisplayed()));
         textInputEditText18.perform(replaceText("Debit"), closeSoftKeyboard());
 
