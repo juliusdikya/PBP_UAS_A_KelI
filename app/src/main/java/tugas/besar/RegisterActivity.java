@@ -11,11 +11,13 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,9 +40,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.view.LayoutInflater;
 
+import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -72,13 +78,21 @@ public class RegisterActivity extends AppCompatActivity {
         emailReg = (TextInputEditText) findViewById(R.id.emailReg);
         passReg = (TextInputEditText) findViewById(R.id.passwordReg);
 
+
+
+
+
         SignUpReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 signup();
             }
         });
+
+
     }
+
 
     public void signup () {
 
@@ -102,6 +116,10 @@ public class RegisterActivity extends AppCompatActivity {
 //                    Toast.makeText(getApplicationContext(), "Sukses", Toast.LENGTH_SHORT).show();
 //                    String input1 = emailReg.getText().toString();
 //                    String input2 = passReg.getText().toString();
+
+
+
+
             FirebaseAuthentication.createUserWithEmailAndPassword(emailRegis, passwordRegis).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

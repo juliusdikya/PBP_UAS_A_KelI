@@ -122,7 +122,7 @@ public class CreatePenyewaActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UserHelper userHelper = snapshot.getValue(UserHelper.class);
                 assert userHelper != null;
-                
+
                 etNamaPenyewa.setText(userHelper.getNama());
 
             }
