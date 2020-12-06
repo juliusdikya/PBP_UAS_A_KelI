@@ -139,16 +139,14 @@ public class SewaMotorActivityTest {
                                 2)));
         appCompatEditText.perform(scrollTo(), replaceText("lukito"), closeSoftKeyboard());
 
-        pressBack();
-
-        ViewInteraction materialButton5 = onView(
-                allOf(withId(R.id.btnProses), withText("Proses"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        2),
-                                1)));
-        materialButton5.perform(scrollTo(), click());
+//        ViewInteraction materialButton5 = onView(
+//                allOf(withId(R.id.btnProses), withText("Proses"),
+//                        childAtPosition(
+//                                childAtPosition(
+//                                        withClassName(is("android.widget.LinearLayout")),
+//                                        2),
+//                                1)));
+//        materialButton5.perform(scrollTo(), click());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.eTId),
@@ -158,8 +156,6 @@ public class SewaMotorActivityTest {
                                         0),
                                 4)));
         appCompatEditText2.perform(scrollTo(), replaceText("12345"), closeSoftKeyboard());
-
-        pressBack();
 
         ViewInteraction materialButton6 = onView(
                 allOf(withId(R.id.btnProses), withText("Proses"),
@@ -179,8 +175,6 @@ public class SewaMotorActivityTest {
                                 6)));
         appCompatEditText3.perform(scrollTo(), replaceText("12345"), closeSoftKeyboard());
 
-        pressBack();
-
         ViewInteraction materialButton7 = onView(
                 allOf(withId(R.id.btnProses), withText("Proses"),
                         childAtPosition(
@@ -198,8 +192,6 @@ public class SewaMotorActivityTest {
                                         0),
                                 10)));
         appCompatEditText4.perform(scrollTo(), replaceText("6"), closeSoftKeyboard());
-
-        pressBack();
 
         ViewInteraction materialButton8 = onView(
                 allOf(withId(R.id.btnProses), withText("Proses"),
