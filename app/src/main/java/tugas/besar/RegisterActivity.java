@@ -11,13 +11,11 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.os.Handler;
-import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,12 +39,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import android.view.LayoutInflater;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.BreakIterator;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.regex.Pattern;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -58,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener AuthStateListener;
     private String CHANNEL_ID = "Channel 1";
     FirebaseDatabase rootNode;
+    TextView result;
     DatabaseReference reference;
 
     @Override
@@ -70,6 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
         SignUpReg = findViewById(R.id.btnSignUpReg);
         FirebaseAuthentication = FirebaseAuth.getInstance();
 
+        result = (TextView) findViewById(R.id.textView);
+
         input_nama = (TextInputLayout) findViewById(R.id.input_nama);
         input_email = (TextInputLayout) findViewById(R.id.input_email);
         input_password = (TextInputLayout) findViewById(R.id.input_password);
@@ -78,21 +78,14 @@ public class RegisterActivity extends AppCompatActivity {
         emailReg = (TextInputEditText) findViewById(R.id.emailReg);
         passReg = (TextInputEditText) findViewById(R.id.passwordReg);
 
-
-
-
-
         SignUpReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                passwordHash(passReg.toString());
                 signup();
             }
         });
-
-
     }
-
 
     public void signup () {
 
@@ -108,18 +101,16 @@ public class RegisterActivity extends AppCompatActivity {
             String nama_layout = input_nama.getEditText().getText().toString();
             String email_layout = input_email.getEditText().getText().toString();
             String password_layout = input_password.getEditText().getText().toString();
+            String enPass = result.getText().toString().trim();
 
             String namaRegis = namaReg.getText().toString();
             String emailRegis = emailReg.getText().toString();
             String passwordRegis = passReg.getText().toString();
 
+
 //                    Toast.makeText(getApplicationContext(), "Sukses", Toast.LENGTH_SHORT).show();
 //                    String input1 = emailReg.getText().toString();
 //                    String input2 = passReg.getText().toString();
-
-
-
-
             FirebaseAuthentication.createUserWithEmailAndPassword(emailRegis, passwordRegis).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -143,7 +134,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     hashMap.put("userId", userId);
                                     hashMap.put("nama", nama_layout);
                                     hashMap.put("email", email_layout);
-                                    hashMap.put("password", password_layout);
+//                                    reference.child(userId).child("password").setValue(enPass);
+                                    hashMap.put("password",enPass);
 //                                          hashMap.put("imageURL","default");
 
                                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -175,6 +167,29 @@ public class RegisterActivity extends AppCompatActivity {
                 + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
                 + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
                 + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
+    }
+
+    public void passwordHash(String password)
+    {
+        try {
+            {
+                MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+                digest.update(password.getBytes());
+                byte messageDigest[] = digest.digest();
+
+                StringBuffer MD5hash = new StringBuffer();
+                for(int i = 0; i<messageDigest.length; i++){
+                    String h = Integer.toHexString(0xFF & messageDigest[i]);
+                    while (h.length()<2)
+                        h = "0" + h;
+                    MD5hash.append(h);
+                }
+                result.setText(MD5hash);
+            }
+        }
+        catch (NoSuchAlgorithmException e){
+            e.printStackTrace();
+        }
     }
 
 }
