@@ -93,8 +93,6 @@ public class CreatePenyewaAdmin extends AppCompatActivity {
     }
 
 
-
-
     private void savePenyewa(){
         InterfaceAPI apiService = ClientAPI.getClient().create(InterfaceAPI.class);
         Call<PenyewaResponse> add = apiService.createPenyewa(etNamaPenyewa.getText().toString(),
